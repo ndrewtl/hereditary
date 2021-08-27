@@ -122,20 +122,29 @@ const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
     .join("line")
     .attr("stroke-width", 10);
 
-  const node = svg.append("g")
-    .attr("stroke", "#00f")
-    .attr("stroke-width", 1.5)
+  const container = svg.append("g")
+
+  const circles = container
     .selectAll("circle")
     .data(nodes)
     .join("circle")
     .attr("r", 10)
-    .attr("fill", 'green')
+    .attr("stroke", "#000")
+    .attr("stroke-width", 1.5)
   // @ts-ignore
     .call(dg(simulation));
 
-  node
-    .append('title')
-    .text(d => d.name);
+  const text = container
+    .selectAll('text')
+    .data(nodes)
+    .join('text')
+    .text(d => d.name)
+    .attr('stroke', '#fff')
+    .attr('stroke-width', 0.5)
+    .attr('stroke-opacity', 0.6)
+    .attr('fill', '#000')
+    .attr('font-size', '16px')
+
 
   simulation.on("tick", () => {
     link
@@ -148,9 +157,12 @@ const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
     // @ts-expect-error
         .attr("y2", d => d.target.y);
 
-    node
+    circles
         .attr("cx", d => d.x)
         .attr("cy", d => d.y);
+    text
+      .attr('x', d => d.x)
+      .attr('y', d => d.y)
   });
 
   return svg.node();
