@@ -1,0 +1,25 @@
+people:
+  - id: elizabeth-2
+    name: Elizabeth II
+    # father: george-6
+    born: 1926
+  - id: charles-prince-of-wales
+    name: Charles, Prince of Wales
+    mother: elizabeth-2
+    born: 1948
+  - id: anne-princess-royal
+    name: Anne, Princess Royal
+    mother: elizabeth-2
+    born: 1950
+  - id: william-duke-of-cambridge
+    name: William, Duke of Cambridge
+    born: 1982
+    father: charles-prince-of-wales
+  - id: prince-george-of-cambridge
+    name: Prince George of Cambridge
+    born: 2013
+    father: william-duke-of-cambridge
+  - id: harry-duke-of-sussex
+    name: Harry, Duke of Sussex
+    born: 1984
+    father: charles-prince-of-wales
