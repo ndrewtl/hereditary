@@ -1,6 +1,18 @@
 import React, { useEffect } from 'react';
-import { select, create, drag } from 'd3';
-import { forceSimulation, forceLink, forceManyBody, forceCenter, SimulationLinkDatum } from 'd3-force';
+import {
+  select,
+  create,
+  drag
+} from 'd3';
+import {
+  forceSimulation,
+  forceLink,
+  forceManyBody,
+  Force,
+  forceX,
+  SimulationNodeDatum,
+  SimulationLinkDatum
+} from 'd3-force';
 import { load } from 'js-yaml';
 import { flatMap } from 'lodash';
 
@@ -31,15 +43,46 @@ const dg = (simulation:any) => {
 
 interface PeopleYAML {
   people: [Person];
-}
-type Identifier = string
-interface Person {
+};
+type Identifier = string;
+interface Person extends SimulationNodeDatum {
   id: Identifier;
   mother?: Identifier;
   father?: Identifier;
+  born: number;
+};
+type Link = SimulationLinkDatum<Person>;
+
+export function ageOrdering(height: number, strength: number = 0.1): Force<Person, Link> {
+  let nodes: [Person],
+    earliestYear: number,
+    latestYear: number;
+
+  const force = (alpha: number) => {
+    nodes.forEach(node => {
+      // How far along the y-axis the node should be, on a scale of 0-1
+      const proportion = (node.born - earliestYear)/(latestYear - earliestYear);
+      // Now scale that proportion to an absolute position based on height
+      const position = proportion * height;
+      // Now, set the velocity toward the position, based on current position, alpha, and strength
+      node.vy! += (position - node.y!) * alpha * strength;
+    });
+  };
+
+  force.initialize = (inputNodes: [Person]) => {
+    nodes = inputNodes;
+    earliestYear = Math.min(...nodes.map((node) => node.born));
+    latestYear = Math.max(...nodes.map((node) => node.born));
+  };
+
+  force.strength = (newVal: number) => {
+    strength = newVal;
+  };
+
+  return force;
 }
 
-const chart = ({ people }: PeopleYAML) => {
+const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
 
   const nodes = people.map(person => Object.create(person));
 
@@ -62,15 +105,14 @@ const chart = ({ people }: PeopleYAML) => {
     return result;
   });
 
-  const width = 500;
-  const height = 500;
   const svg = create('svg')
   .attr('viewBox', `0 0 ${width} ${height}`)
 
   const simulation = forceSimulation(nodes)
-    .force('charge', forceManyBody())
-  // @ts-ignore
-    .force('link', forceLink(links).id(d => d.id));
+    .force('charge', forceManyBody().strength(0.1))
+    .force('link', forceLink<Person, Link>(links).id(d => d.id).strength(0.1))
+    .force('age', ageOrdering(height, 0.1))
+    .force('horizontal-center', forceX(width / 2).strength(0.02));
 
   const link = svg.append("g")
     .attr("stroke", "#999")
