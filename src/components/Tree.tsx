@@ -87,8 +87,10 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
 
   force.initialize = (inputNodes: [Person]) => {
     nodes = inputNodes;
-    earliestYear = Math.min(...nodes.map((node) => node.born));
-    latestYear = Math.max(...nodes.map((node) => node.born));
+    // The earliest year is the earliest birth date of a monarch, with 100 years' padding
+    earliestYear = Math.min(...nodes.map((node) => node.born)) - 100;
+    // The latest year is the latest birth date of a monarch, with 100 years' padding
+    latestYear = Math.max(...nodes.map((node) => node.born)) + 100;
   };
 
   force.strength = (newVal: number) => {
@@ -98,7 +100,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
   return force;
 }
 
-const chart = ({ people, colors }: Data, width = 500, height = 300) => {
+const chart = ({ people, colors }: Data, width = 500, height = 800) => {
 
   const nodes = people.map(person => Object.create(person));
 

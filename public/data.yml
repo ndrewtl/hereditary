@@ -1,7 +1,7 @@
 people:
   - id: elizabeth-2
     name: Elizabeth II
-    # father: george-6
+    father: george-6
     born: 1926
     reign: current # type this as none, current, expected, past
     country: england
@@ -30,6 +30,35 @@ people:
     name: Harry, Duke of Sussex
     born: 1984
     father: charles-prince-of-wales
+    country: england
+  - id: george-6
+    father: george-5
+    name: George VI
+    born: 1895
+    reign: past
+    country: england
+  - id: edward-8
+    father: george-5
+    name: Edward VIII
+    born: 1894
+    reign: past
+    country: england
+  - id: george-5
+    name: George V
+    father: edward-7
+    born: 1865
+    reign: past
+    country: england
+  - id: edward-7
+    name: Edward VII
+    mother: victoria
+    born: 1841
+    reign: past
+    country: england
+  - id: victoria
+    born: 1819
+    name: Queen Victoria
+    reign: past
     country: england
 colors:
   countries:
