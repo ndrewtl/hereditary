@@ -368,10 +368,8 @@ const dg = (simulation:any) => {
 const chart = () => {
   const width = 500;
   const height = 500;
-
   const svg = create('svg')
-  //@ts-ignore
-  .attr('viewBox', [0, 0, width, height])
+  .attr('viewBox', `0 0 ${width} ${height}`)
 
   const links = data.links.map(d => Object.create(d));
   const nodes = data.nodes.map(d => Object.create(d));
