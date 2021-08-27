@@ -31,6 +31,11 @@ people:
     father: charles-prince-of-wales
     country: england
 colors:
-  england: red
-  regnal: gold
-  aregnal: black
+  countries:
+    england: red
+    none: white
+  reign:
+    past: gold
+    current: gold
+    expected: gold
+    none: black

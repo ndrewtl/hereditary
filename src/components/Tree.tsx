@@ -42,13 +42,17 @@ const dg = (simulation:any) => {
 }
 
 type Color = string;
+type Country = string;
 interface Data {
   people: [Person];
-  colors: Record<string, Color>
+  colors: {
+    countries: Record<Country, Color>;
+    reign: Record<Reign, Color>;
+  }
 };
 
 enum Reign {
-  Current = 'current',
+    Current = 'current',
     Past = 'past',
     None = 'none',
     Expected = 'expected'
@@ -59,8 +63,9 @@ interface Person extends SimulationNodeDatum {
   id: Identifier;
   mother?: Identifier;
   father?: Identifier;
+  country?: Country;
   born: number;
-  reign: Reign
+  reign?: Reign;
 };
 type Link = SimulationLinkDatum<Person>;
 
@@ -93,7 +98,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
   return force;
 }
 
-const chart = ({ people }: Data, width = 500, height = 300) => {
+const chart = ({ people, colors }: Data, width = 500, height = 300) => {
 
   const nodes = people.map(person => Object.create(person));
 
@@ -126,11 +131,11 @@ const chart = ({ people }: Data, width = 500, height = 300) => {
     .force('horizontal-center', forceX(width / 2).strength(0.05));
 
   const link = svg.append("g")
-    .attr("stroke", "#999")
-    .attr("stroke-opacity", 0.6)
     .selectAll("line")
     .data(links)
     .join("line")
+    .attr("stroke", "#999")
+    .attr("stroke-opacity", 0.6)
     .attr("stroke-width", 10);
 
   const container = svg.append("g")
@@ -140,8 +145,9 @@ const chart = ({ people }: Data, width = 500, height = 300) => {
     .data(nodes)
     .join("circle")
     .attr("r", 10)
-    .attr("stroke", "#000")
+    .attr("stroke", (person: Person) => person.reign ? colors.reign[person.reign] : colors.reign.none)
     .attr("stroke-width", 1.5)
+    .attr('fill', (person:Person) => person.country ? colors.countries[person.country] : colors.countries.none)
   // @ts-ignore
     .call(dg(simulation));
 
