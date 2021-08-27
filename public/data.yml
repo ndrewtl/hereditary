@@ -100,10 +100,28 @@ people:
     country: spain
     born: 1887
     mother: victoria
+  - id: victoria-princess-royal
+    name: Victoria, Princess Royal
+    mother: victoria
+    born: 1840
+    country: germany
+  - id: frederick-3
+    name: Frederick III
+    born: 1831
+    country: germany
+    reign: past
+  - id: wilhelm-2
+    name: Wilhelm II
+    country: germany
+    born: 1859
+    reign: past
+    mother: victoria-princess-royal
+    father: frederick-3
 colors:
   countries:
     england: red
     spain: yellow
+    germany: white
     none: white
   reign:
     past: gold
