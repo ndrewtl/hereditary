@@ -60,9 +60,50 @@ people:
     name: Queen Victoria
     reign: past
     country: england
+  - id: infanta-leonor
+    name: Leonor, Princess of Asturias
+    father: felipe-6
+    born: 2005
+    reign: expected
+    country: spain
+  - id: felipe-6
+    name: Felipe VI
+    father: juan-carlos-1
+    born: 1968
+    reign: current
+    country: spain
+  - id: juan-carlos-1
+    name: Juan Carlos I
+    father: infante-juan
+    born: 1938
+    reign: past
+    country: spain
+  - id: infante-juan
+    name: Infante Juan, Count of Barcelona
+    father: alfonso-13
+    mother: victoria-eugenie-of-battenberg
+    born: 1913
+    reign: none
+    country: spain
+  - id: alfonso-13
+    name: Alfonso XIII
+    born: 1886
+    reign: past
+    father: alfonso-12
+  - id: alfonso-12
+    name: Alfonso XII
+    born: 1857
+    reign: past
+    country: spain
+  - id: victoria-eugenie-of-battenberg
+    name: Victoria Eugenie of Battenberg
+    country: spain
+    born: 1887
+    mother: victoria
 colors:
   countries:
     england: red
+    spain: yellow
     none: white
   reign:
     past: gold

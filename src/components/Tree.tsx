@@ -100,7 +100,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
   return force;
 }
 
-const chart = ({ people, colors }: Data, width = 500, height = 800) => {
+const chart = ({ people, colors }: Data, width = 600, height = 800) => {
 
   const nodes = people.map(person => Object.create(person));
 
@@ -127,8 +127,8 @@ const chart = ({ people, colors }: Data, width = 500, height = 800) => {
   .attr('viewBox', `0 0 ${width} ${height}`)
 
   const simulation = forceSimulation(nodes)
-    .force('charge', forceManyBody().strength(-100))
-    .force('link', forceLink<Person, Link>(links).id(d => d.id).strength(0.1))
+    .force('charge', forceManyBody().strength(-300))
+    .force('link', forceLink<Person, Link>(links).id(d => d.id).strength(0.05))
     .force('age', ageOrdering(height, 0.1))
     .force('horizontal-center', forceX(width / 2).strength(0.05));
 
