@@ -41,15 +41,26 @@ const dg = (simulation:any) => {
       .on("end", dragended);
 }
 
-interface PeopleYAML {
+type Color = string;
+interface Data {
   people: [Person];
+  colors: Record<string, Color>
 };
+
+enum Reign {
+  Current = 'current',
+    Past = 'past',
+    None = 'none',
+    Expected = 'expected'
+}
+
 type Identifier = string;
 interface Person extends SimulationNodeDatum {
   id: Identifier;
   mother?: Identifier;
   father?: Identifier;
   born: number;
+  reign: Reign
 };
 type Link = SimulationLinkDatum<Person>;
 
@@ -82,7 +93,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
   return force;
 }
 
-const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
+const chart = ({ people }: Data, width = 500, height = 300) => {
 
   const nodes = people.map(person => Object.create(person));
 
@@ -168,20 +179,21 @@ const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
   return svg.node();
 }
 
-async function fetchData(): Promise<PeopleYAML> {
-  const response = await fetch('/people.yml')
+async function fetchData(): Promise<Data> {
+  const response = await fetch('/data.yml')
   const text = await response.text();
-  return await load(text) as PeopleYAML;
+  return await load(text) as Data;
 }
 
 export default () => {
   const id = 'tree';
 
   useEffect(() => {
-    fetchData()
-      .then(data =>
+    ((async () => {
+      const data = await fetchData();
         select(`#${id}`)
-        .append(() => chart(data)));
+      .append(() => chart(data));
+    })());
   }, []);
   return (
     <div style={{ border: '1px solid black' }} id={id}>
