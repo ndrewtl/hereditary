@@ -109,10 +109,10 @@ const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
   .attr('viewBox', `0 0 ${width} ${height}`)
 
   const simulation = forceSimulation(nodes)
-    .force('charge', forceManyBody().strength(0.1))
+    .force('charge', forceManyBody().strength(-100))
     .force('link', forceLink<Person, Link>(links).id(d => d.id).strength(0.1))
     .force('age', ageOrdering(height, 0.1))
-    .force('horizontal-center', forceX(width / 2).strength(0.02));
+    .force('horizontal-center', forceX(width / 2).strength(0.05));
 
   const link = svg.append("g")
     .attr("stroke", "#999")
@@ -122,16 +122,14 @@ const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
     .join("line")
     .attr("stroke-width", 10);
 
-  const color = '#ff0000';
-
   const node = svg.append("g")
-    .attr("stroke", "#fff")
+    .attr("stroke", "#00f")
     .attr("stroke-width", 1.5)
     .selectAll("circle")
     .data(nodes)
     .join("circle")
-    .attr("r", 5)
-    .attr("fill", color)
+    .attr("r", 10)
+    .attr("fill", 'green')
   // @ts-ignore
     .call(dg(simulation));
 
@@ -141,13 +139,13 @@ const chart = ({ people }: PeopleYAML, width = 500, height = 300) => {
 
   simulation.on("tick", () => {
     link
-    // @ts-ignore
+    // @ts-expect-error
         .attr("x1", d => d.source.x)
-    // @ts-ignore
+    // @ts-expect-error
         .attr("y1", d => d.source.y)
-    // @ts-ignore
+    // @ts-expect-error
         .attr("x2", d => d.target.x)
-    // @ts-ignore
+    // @ts-expect-error
         .attr("y2", d => d.target.y);
 
     node
