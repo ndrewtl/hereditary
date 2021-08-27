@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { select, create, creator } from 'd3';
+import { select, create, drag } from 'd3';
 import { forceSimulation, forceLink, forceManyBody, forceCenter } from 'd3-force';
 
 const data = {
@@ -340,6 +340,31 @@ const data = {
   ]
 }
 
+const dg = (simulation:any) => {
+
+  function dragstarted(event:any) {
+    if (!event.active) simulation.alphaTarget(0.3).restart();
+    event.subject.fx = event.subject.x;
+    event.subject.fy = event.subject.y;
+  }
+
+  function dragged(event:any) {
+    event.subject.fx = event.x;
+    event.subject.fy = event.y;
+  }
+
+  function dragended(event:any) {
+    if (!event.active) simulation.alphaTarget(0);
+    event.subject.fx = null;
+    event.subject.fy = null;
+  }
+
+  return drag()
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended);
+}
+
 const chart = () => {
   const width = 500;
   const height = 500;
@@ -376,6 +401,8 @@ const chart = () => {
     .join("circle")
     .attr("r", 5)
     .attr("fill", color)
+  // @ts-ignore
+    .call(dg(simulation));
 
   simulation.on("tick", () => {
     link
