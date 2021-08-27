@@ -10,6 +10,7 @@ people:
     mother: elizabeth-2
     born: 1948
     country: england
+    reign: expected
   - id: anne-princess-royal
     name: Anne, Princess Royal
     mother: elizabeth-2
@@ -36,6 +37,6 @@ colors:
     none: white
   reign:
     past: gold
-    current: gold
-    expected: gold
+    current: orange
+    expected: purple
     none: black

@@ -146,7 +146,7 @@ const chart = ({ people, colors }: Data, width = 500, height = 300) => {
     .join("circle")
     .attr("r", 10)
     .attr("stroke", (person: Person) => person.reign ? colors.reign[person.reign] : colors.reign.none)
-    .attr("stroke-width", 1.5)
+    .attr("stroke-width", 3)
     .attr('fill', (person:Person) => person.country ? colors.countries[person.country] : colors.countries.none)
   // @ts-ignore
     .call(dg(simulation));
