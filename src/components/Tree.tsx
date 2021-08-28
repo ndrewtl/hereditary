@@ -51,8 +51,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
 const chart = ({ people, colors }: DataSchema, width = 600, height = 800) => {
 
   const radius = 20;
-
-  const nodes = people.map(person => Object.create(person));
+  const nodes = people;
 
   const links = flatMap(people, (person: Person) => {
     const result = [];
@@ -143,17 +142,17 @@ const chart = ({ people, colors }: DataSchema, width = 600, height = 800) => {
         .attr("y2", d => d.target.y);
 
     flags
-        .attr("x", d => d.x - 2 * radius)
-        .attr("y", d => d.y - radius);
+        .attr("x", d => d.x! - 2 * radius)
+        .attr("y", d => d.y! - radius);
     text
-      .attr('x', d => d.x - radius)
-      .attr('y', d => d.y - radius)
+      .attr('x', d => d.x! - radius)
+      .attr('y', d => d.y! - radius)
     masks
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y)
+      .attr('cx', d => d.x!)
+      .attr('cy', d => d.y!)
     outlines
-      .attr('cx', d => d.x)
-      .attr('cy', d => d.y)
+      .attr('cx', d => d.x!)
+      .attr('cy', d => d.y!)
   });
 
   return svg.node();
