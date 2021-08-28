@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import {
   select,
   create,
-  drag
 } from 'd3';
 import {
   forceSimulation,
@@ -15,32 +14,7 @@ import {
 } from 'd3-force';
 import { load } from 'js-yaml';
 import { flatMap } from 'lodash';
-
-const dg = (simulation:any) => {
-
-  function dragstarted(event:any) {
-    if (!event.active) simulation.alphaTarget(0.3).restart();
-    event.subject.fx = event.subject.x;
-    event.subject.fy = event.subject.y;
-  }
-
-  function dragged(event:any) {
-    event.subject.fx = event.x;
-    event.subject.fy = event.y;
-  }
-
-  function dragended(event:any) {
-    if (!event.active) simulation.alphaTarget(0);
-    event.subject.fx = null;
-    event.subject.fy = null;
-  }
-
-  return drag()
-      .on("start", dragstarted)
-      .on("drag", dragged)
-      .on("end", dragended);
-}
-
+import { drag } from '../utils/drag';
 type Color = string;
 type Country = string;
 interface Data {
@@ -169,7 +143,7 @@ const chart = ({ people, colors }: Data, width = 600, height = 800) => {
     .attr('stroke-width', '4px')
     .attr('fill-opacity' , 0)
   // @ts-ignore
-    .call(dg(simulation));
+    .call(drag(simulation));
 
   const text = container
     .selectAll('text')
