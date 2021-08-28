@@ -102,6 +102,8 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
 
 const chart = ({ people, colors }: Data, width = 600, height = 800) => {
 
+  const radius = 20;
+
   const nodes = people.map(person => Object.create(person));
 
   const links = flatMap(people, (person: Person) => {
@@ -123,8 +125,7 @@ const chart = ({ people, colors }: Data, width = 600, height = 800) => {
     return result;
   });
 
-  const svg = create('svg')
-  .attr('viewBox', `0 0 ${width} ${height}`)
+  const svg = create('svg').attr('viewBox', `0 0 ${width} ${height}`)
 
   const simulation = forceSimulation(nodes)
     .force('charge', forceManyBody().strength(-300))
@@ -142,14 +143,31 @@ const chart = ({ people, colors }: Data, width = 600, height = 800) => {
 
   const container = svg.append("g")
 
-  const circles = container
-    .selectAll("circle")
+  const masks = container
+    .selectAll('clipPath')
     .data(nodes)
-    .join("circle")
-    .attr("r", 10)
-    .attr("stroke", (person: Person) => person.reign ? colors.reign[person.reign] : colors.reign.none)
-    .attr("stroke-width", 3)
-    .attr('fill', (person:Person) => person.country ? colors.countries[person.country] : colors.countries.none)
+    .join('clipPath')
+    .attr('id', d => `${d.id}-mask`)
+    .append('circle')
+    .attr('r', radius)
+  .attr('stroke', '#000')
+
+  const flags = container
+    .selectAll()
+    .data(nodes)
+    .join('image')
+    .attr('href', d => `/flags/${d.country}.svg`)
+    .attr('height', radius * 2)
+    .attr('clip-path', d => `url(#${d.id}-mask)`)
+
+  const outlines = container
+    .selectAll()
+    .data(nodes)
+    .join('circle')
+    .attr('r', radius)
+    .attr('stroke', (d: Person) => d.reign ? colors.reign[d.reign] : colors.reign.none)
+    .attr('stroke-width', '4px')
+    .attr('fill-opacity' , 0)
   // @ts-ignore
     .call(dg(simulation));
 
@@ -176,12 +194,18 @@ const chart = ({ people, colors }: Data, width = 600, height = 800) => {
     // @ts-expect-error
         .attr("y2", d => d.target.y);
 
-    circles
-        .attr("cx", d => d.x)
-        .attr("cy", d => d.y);
+    flags
+        .attr("x", d => d.x - 2 * radius)
+        .attr("y", d => d.y - radius);
     text
-      .attr('x', d => d.x)
-      .attr('y', d => d.y)
+      .attr('x', d => d.x - radius)
+      .attr('y', d => d.y - radius)
+    masks
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y)
+    outlines
+      .attr('cx', d => d.x)
+      .attr('cy', d => d.y)
   });
 
   return svg.node();
