@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   select,
   create,
@@ -18,7 +18,7 @@ import {
 } from '../utils/types';
 
 export function ageOrdering(height: number, strength: number = 0.1): Force<Person, PersonLink> {
-  let nodes: [Person],
+  let nodes: Person[],
     earliestYear: number,
     latestYear: number;
 
@@ -33,7 +33,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
     });
   };
 
-  force.initialize = (inputNodes: [Person]) => {
+  force.initialize = (inputNodes: Person[]) => {
     nodes = inputNodes;
     // The earliest year is the earliest birth date of a monarch, with 100 years' padding
     earliestYear = Math.min(...nodes.map((node) => node.born)) - 100;
@@ -164,18 +164,91 @@ async function fetchData(): Promise<DataSchema> {
   return await load(text) as DataSchema;
 }
 
-export default () => {
-  const id = 'tree';
+interface SVGProps {
+  nodes: Person[];
+  links: PersonLink[];
+  width: number;
+  height: number;
+  nodeRadius: number;
+}
 
-  useEffect(() => {
-    ((async () => {
-      const data = await fetchData();
-        select(`#${id}`)
-      .append(() => chart(data));
-    })());
-  }, []);
+function SVG({ nodes, links, width, height, nodeRadius }: SVGProps) {
+
+        // {nodes.map(node =>
+        //   <circle cx={node.x!} cy={node.y!} r='10' stroke='black' strokeWidth='12' />
+        // )}
   return (
-    <div style={{ border: '1px solid black' }} id={id}>
-    </div>
+    <svg width={width} height={height}>
+      <g>
+        {nodes.map(node =>
+          <g>
+            <clipPath id={`${node.id}-mask`}>
+              <circle r={nodeRadius} cx={node.x!} cy={node.y!} />
+            </clipPath>
+            <image key={node.id}
+                   href={`/flags/${node.country!}.svg`}
+                   x={node.x! - 2*nodeRadius}
+                   y={node.y! - nodeRadius}
+                   height={nodeRadius * 2}
+                   clipPath={`url(#${node.id}-mask)`} />
+          </g>
+        )}
+      </g>
+    </svg>
   );
 }
+
+function Tree() {
+  const width = 800;
+  const height = 800;
+  const nodeRadius = 30;
+
+  const [simulation, ] = useState(forceSimulation().stop());
+  const [nodes, setNodes] = useState<Person[]>([]);
+  const [links, setLinks] = useState<PersonLink[]>([]);
+
+  useEffect(() => {
+    fetchData().then(({ people }) => {
+      const links = flatMap(people, (person: Person) => {
+        const result = [];
+        if (person.mother) {
+          result.push({
+            source: person.id,
+            target: person.mother
+          });
+        }
+
+        if (person.father) {
+          result.push({
+            source: person.id,
+            target: person.father
+          });
+        }
+
+        return result;
+      });
+
+      simulation.nodes(people);
+      simulation
+        .force('charge', forceManyBody().strength(-300))
+        .force('link', forceLink<Person, PersonLink>(links).id(d => d.id).strength(0.05))
+        .force('age', ageOrdering(height, 0.1))
+        .force('horizontal-center', forceX(width / 2).strength(0.05));
+      setNodes(people);
+      setLinks(links);
+      simulation.alphaTarget(1).restart();
+    })
+  }, []);
+
+  simulation.on('tick', () => {
+    setNodes([...nodes]);
+    setLinks([...links]);
+    console.log(nodes[0]);
+  });
+
+  return (
+    <SVG width={width} height={height} nodes={nodes} links={links} nodeRadius={nodeRadius} />
+  );
+}
+
+export default Tree;
