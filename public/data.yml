@@ -117,11 +117,22 @@ people:
     reign: past
     mother: victoria-princess-royal
     father: frederick-3
+  - id: princess-alice
+    name: Princess Alice of the United Kingdom
+    born: 1843
+    country: england
+    mother: victoria
+  - id: empress-alexandra
+    name: Empress Alexandra of Russia
+    born: 1872
+    country: russia
+    mother: princess-alice
 colors:
   countries:
     england: red
     spain: yellow
     germany: white
+    russia: blue
     none: white
   reign:
     past: gold
