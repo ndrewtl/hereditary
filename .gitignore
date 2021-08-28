@@ -19,5 +19,6 @@
 .env.production.local
 
 npm-debug.log*
+react-app-env.d.ts
 yarn-debug.log*
 yarn-error.log*
