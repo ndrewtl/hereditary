@@ -8,42 +8,16 @@ import {
   forceLink,
   forceManyBody,
   Force,
-  forceX,
-  SimulationNodeDatum,
-  SimulationLinkDatum
+  forceX
 } from 'd3-force';
 import { load } from 'js-yaml';
 import { flatMap } from 'lodash';
 import { drag } from '../utils/drag';
-type Color = string;
-type Country = string;
-interface Data {
-  people: [Person];
-  colors: {
-    countries: Record<Country, Color>;
-    reign: Record<Reign, Color>;
-  }
-};
+import {
+  Person, PersonLink, DataSchema
+} from '../utils/types';
 
-enum Reign {
-    Current = 'current',
-    Past = 'past',
-    None = 'none',
-    Expected = 'expected'
-}
-
-type Identifier = string;
-interface Person extends SimulationNodeDatum {
-  id: Identifier;
-  mother?: Identifier;
-  father?: Identifier;
-  country?: Country;
-  born: number;
-  reign?: Reign;
-};
-type Link = SimulationLinkDatum<Person>;
-
-export function ageOrdering(height: number, strength: number = 0.1): Force<Person, Link> {
+export function ageOrdering(height: number, strength: number = 0.1): Force<Person, PersonLink> {
   let nodes: [Person],
     earliestYear: number,
     latestYear: number;
@@ -74,7 +48,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
   return force;
 }
 
-const chart = ({ people, colors }: Data, width = 600, height = 800) => {
+const chart = ({ people, colors }: DataSchema, width = 600, height = 800) => {
 
   const radius = 20;
 
@@ -103,7 +77,7 @@ const chart = ({ people, colors }: Data, width = 600, height = 800) => {
 
   const simulation = forceSimulation(nodes)
     .force('charge', forceManyBody().strength(-300))
-    .force('link', forceLink<Person, Link>(links).id(d => d.id).strength(0.05))
+    .force('link', forceLink<Person, PersonLink>(links).id(d => d.id).strength(0.05))
     .force('age', ageOrdering(height, 0.1))
     .force('horizontal-center', forceX(width / 2).strength(0.05));
 
@@ -185,10 +159,10 @@ const chart = ({ people, colors }: Data, width = 600, height = 800) => {
   return svg.node();
 }
 
-async function fetchData(): Promise<Data> {
+async function fetchData(): Promise<DataSchema> {
   const response = await fetch('/data.yml')
   const text = await response.text();
-  return await load(text) as Data;
+  return await load(text) as DataSchema;
 }
 
 export default () => {
