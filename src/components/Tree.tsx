@@ -169,7 +169,7 @@ interface PersonSVGProps {
   radius: number;
   reignColors: Record<Reign, Color>
 }
-function PersonSVG({ person: { id, country, reign, x, y}, radius, reignColors}: PersonSVGProps) {
+function PersonSVG({ person: { id, name, country, reign, x, y}, radius, reignColors}: PersonSVGProps) {
           return (<g>
             <clipPath id={`${id}-mask`}>
               <circle r={radius} cx={x!} cy={y!} />
@@ -187,6 +187,14 @@ function PersonSVG({ person: { id, country, reign, x, y}, radius, reignColors}: 
                     strokeWidth='4px'
                     fillOpacity='0'
             />
+            <text x={x! - (1.2 * radius)}
+                  y={y! - (1.2 * radius)}
+                  stroke='#fff'
+                  strokeWidth='0.5'
+                  strokeOpacity='0.6'
+                  fill='#000'
+                  fontSize='16px'
+            >{name}</text>
           </g>);
 }
 
@@ -247,14 +255,14 @@ function Tree({width, height, radius}: TreeProps) {
         .force('link', forceLink<Person, PersonLink>(links).id(d => d.id).strength(0.05))
         .force('age', ageOrdering(height, 0.1))
         .force('horizontal-center', forceX(width / 2).strength(0.05));
-      simulation.alphaTarget(1).restart();
+      simulation.alphaTarget(0.3).restart();
     })
   }, []);
 
   simulation.on('tick', () => {
+    console.log(simulation.alpha());
     setNodes([...nodes]);
     setLinks([...links]);
-    console.log(nodes[0]);
   });
 
   return (
