@@ -17,3 +17,8 @@ rules:
   comma-dangle:
     - error
     - never
+  # we need to disable the JS version of this rule, and then enable the typescript version
+  no-use-before-define:
+    - off
+  '@typescript-eslint/no-use-before-define':
+    - error
