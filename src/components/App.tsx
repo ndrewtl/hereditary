@@ -12,7 +12,7 @@ function App() {
         <hr />
       </Row>
       <Row>
-        <Tree />
+        <Tree width={800} height={800} radius={30} />
       </Row>
     </Container>
   );

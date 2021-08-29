@@ -35,6 +35,7 @@ export enum Reign {
  */
 export interface Person extends SimulationNodeDatum {
   id: Identifier;
+  name: string;
   mother?: Identifier;
   father?: Identifier;
   country?: Country;
@@ -48,12 +49,17 @@ export interface Person extends SimulationNodeDatum {
 export type PersonLink = SimulationLinkDatum<Person>;
 
 /**
+ * An object describing the colors, or theming of the tree
+ */
+export interface Colors {
+  countries: Record<Country, Color>;
+  reign: Record<Reign, Color>;
+}
+
+/**
  * One final type: this is the schema for the /public/data.yml file and is used for importing it
  */
 export interface DataSchema {
   people: [Person];
-  colors: {
-    countries: Record<Country, Color>;
-    reign: Record<Reign, Color>;
-  }
+  colors: Colors;
 };
