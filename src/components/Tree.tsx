@@ -1,57 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import {
-  create,
-  drag
-} from 'd3';
-import {
   forceSimulation,
   forceLink,
   forceManyBody,
-  Force,
   forceX
 } from 'd3-force';
-import { load } from 'js-yaml';
 import { flatMap } from 'lodash';
 import {
-  Person, PersonLink, DataSchema, Reign, Color, Colors
+  Person, PersonLink, Reign, Color, Colors
 } from '../utils/types';
+import { ageOrdering, fetchData } from '../utils/util';
 
-export function ageOrdering(height: number, strength: number = 0.1): Force<Person, PersonLink> {
-  let nodes: Person[],
-    earliestYear: number,
-    latestYear: number;
-
-  const force = (alpha: number) => {
-    nodes.forEach(node => {
-      // How far along the y-axis the node should be, on a scale of 0-1
-      const proportion = (node.born - earliestYear)/(latestYear - earliestYear);
-      // Now scale that proportion to an absolute position based on height
-      const position = proportion * height;
-      // Now, set the velocity toward the position, based on current position, alpha, and strength
-      node.vy! += (position - node.y!) * alpha * strength;
-    });
-  };
-
-  force.initialize = (inputNodes: Person[]) => {
-    nodes = inputNodes;
-    // The earliest year is the earliest birth date of a monarch, with 100 years' padding
-    earliestYear = Math.min(...nodes.map((node) => node.born)) - 100;
-    // The latest year is the latest birth date of a monarch, with 100 years' padding
-    latestYear = Math.max(...nodes.map((node) => node.born)) + 100;
-  };
-
-  force.strength = (newVal: number) => {
-    strength = newVal;
-  };
-
-  return force;
-}
-
-async function fetchData(): Promise<DataSchema> {
-  const response = await fetch('/data.yml')
-  const text = await response.text();
-  return await load(text) as DataSchema;
-}
 
 interface PersonSVGProps {
   person: Person;
