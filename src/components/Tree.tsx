@@ -156,7 +156,10 @@ function Tree({ width, height, radius }: TreeProps) {
       }}
     >
       <g>
-        {links.map((link) => <PersonLinkSVG link={link} />)}
+        {links.map((link) =>
+        <g key={`${(link.source as Person).id}-link`}>
+          <PersonLinkSVG link={link} />)
+        </g>)}
       </g>
       <g>
         {nodes.map((node) => (
@@ -165,6 +168,7 @@ function Tree({ width, height, radius }: TreeProps) {
               setDrag([node.x! - e.clientX, node.y! - e.clientY, node]);
             }}
             cursor="move"
+            key={`${node.id}-node`}
           >
             <PersonSVG person={node} radius={radius} reignColors={colors!.reign} />
           </g>
