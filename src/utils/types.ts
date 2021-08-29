@@ -5,7 +5,6 @@ import { SimulationNodeDatum, SimulationLinkDatum } from 'd3-force';
  */
 export type Identifier = string;
 
-
 /**
  * Colors, used for styling
  */
@@ -41,7 +40,7 @@ export interface Person extends SimulationNodeDatum {
   country?: Country;
   born: number;
   reign?: Reign;
-};
+}
 
 /**
  * A link between people
@@ -62,4 +61,4 @@ export interface Colors {
 export interface DataSchema {
   people: [Person];
   colors: Colors;
-};
+}

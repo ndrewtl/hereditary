@@ -5,8 +5,8 @@
  */
 
 import { Force } from 'd3';
-import { Person, PersonLink, DataSchema } from './types';
 import { load } from 'js-yaml';
+import { Person, PersonLink, DataSchema } from './types';
 
 /**
  * This is a force that causes nodes to gravitate toward the correct time
@@ -18,14 +18,14 @@ import { load } from 'js-yaml';
  * along the y-axis toward the year of their birth
  */
 export function ageOrdering(height: number, strength: number = 0.1): Force<Person, PersonLink> {
-  let nodes: Person[],
-    earliestYear: number,
-    latestYear: number;
+  let nodes: Person[];
+  let earliestYear: number;
+  let latestYear: number;
 
   const force = (alpha: number) => {
-    nodes.forEach(node => {
+    nodes.forEach((node) => {
       // How far along the y-axis the node should be, on a scale of 0-1
-      const proportion = (node.born - earliestYear)/(latestYear - earliestYear);
+      const proportion = (node.born - earliestYear) / (latestYear - earliestYear);
       // Now scale that proportion to an absolute position based on height
       const position = proportion * height;
       // Now, set the velocity toward the position, based on current position, alpha, and strength
@@ -58,4 +58,3 @@ export async function fetchData(url: string = '/data.yml'): Promise<DataSchema> 
   const text = await response.text();
   return await load(text) as DataSchema;
 }
-
