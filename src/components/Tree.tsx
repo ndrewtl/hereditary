@@ -7,7 +7,7 @@ import {
 } from 'd3-force';
 import { flatMap } from 'lodash';
 import {
-  Person, PersonLink, Reign, Color, Colors
+  Person, PersonLink, Reign, Color, Colors, DataSchema
 } from '../utils/types';
 import { ageOrdering, fetchData } from '../utils/util';
 
@@ -77,40 +77,16 @@ function PersonLinkSVG({ link }: PersonLinkSVGProps) {
 }
 
 interface TreeProps {
+  // TODO have this be nodes instead
+  data: DataSchema;
   width: number;
   height: number;
   radius: number;
 }
-function Tree({ width, height, radius }: TreeProps) {
+function Tree({ data: { people, colors }, width, height, radius }: TreeProps) {
   const [simulation] = useState(forceSimulation().stop());
-  const [colors, setColors] = useState<Colors>();
-  const [nodes, setNodes] = useState<Person[]>([]);
-  const [links, setLinks] = useState<PersonLink[]>([]);
-
   useEffect(() => {
-    fetchData().then(({ people, colors }) => {
-      const links = flatMap(people, (person: Person) => {
-        const result = [];
-        if (person.mother) {
-          result.push({
-            source: person.id,
-            target: person.mother
-          });
-        }
-
-        if (person.father) {
-          result.push({
-            source: person.id,
-            target: person.father
-          });
-        }
-
-        return result;
-      });
-      setColors(colors);
-      setNodes(people);
-      setLinks(links);
-
+    // One-time initialization: add simulation nodes and forces
       simulation.nodes(people);
       simulation
         .force('charge', forceManyBody().strength(-300))
@@ -118,9 +94,30 @@ function Tree({ width, height, radius }: TreeProps) {
         .force('age', ageOrdering(height, 0.1))
         .force('horizontal-center', forceX(width / 2).strength(0.05));
       simulation.alphaTarget(0.3).restart();
-    });
   }, []);
+  // Have nodes and links be state variables so we can update them
+  const [nodes, setNodes] = useState(people);
+  const [links, setLinks] = useState<PersonLink[]>(flatMap(people, (person: Person) => {
+    // Initialize links as familial connections
+    const result = [];
+    if (person.mother) {
+      result.push({
+        source: person.id,
+        target: person.mother
+      });
+    }
 
+    if (person.father) {
+      result.push({
+        source: person.id,
+        target: person.father
+      });
+    }
+
+    return result;
+  }));
+
+  // On every simulation step, write nodes and links again
   simulation.on('tick', () => {
     setNodes([...nodes]);
     setLinks([...links]);

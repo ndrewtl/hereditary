@@ -3,6 +3,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Tree from './Tree';
+import { Async } from 'react-async';
+import { fetchData } from '../utils/util';
+import { DataSchema } from '../utils/types';
 
 function App() {
   return (
@@ -12,7 +15,13 @@ function App() {
         <hr />
       </Row>
       <Row>
-        <Tree width={800} height={800} radius={30} />
+        <Async promiseFn={() => fetchData()} >
+          <Async.Fulfilled>
+            {(data: DataSchema) =>
+              <Tree width={800} height={800} radius={30} data={data} />
+            }
+          </Async.Fulfilled>
+        </Async>
       </Row>
     </Container>
   );
