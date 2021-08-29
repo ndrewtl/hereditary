@@ -190,6 +190,21 @@ function PersonSVG({ person: { id, country, reign, x, y}, radius, reignColors}: 
           </g>);
 }
 
+interface PersonLinkSVGProps {
+  link: PersonLink;
+}
+function PersonLinkSVG({ link }: PersonLinkSVGProps) {
+  return (
+    <line x1={(link.source as Person).x}
+          y1={(link.source as Person).y}
+          x2={(link.target as Person).x}
+          y2={(link.target as Person).y}
+          stroke='#999'
+          strokeOpacity='0.6'
+          strokeWidth='10' />
+  );
+}
+
 interface TreeProps {
   width: number;
   height: number;
@@ -244,6 +259,11 @@ function Tree({width, height, radius}: TreeProps) {
 
   return (
     <svg width={width} height={height}>
+      <g>
+        {links.map(link =>
+          <PersonLinkSVG link={link} />
+        )}
+      </g>
       <g>
         {nodes.map(node =>
           <PersonSVG person={node} radius={radius} reignColors={colors!.reign}/>
