@@ -14,7 +14,7 @@ import { load } from 'js-yaml';
 import { flatMap } from 'lodash';
 import { drag } from '../utils/drag';
 import {
-  Person, PersonLink, DataSchema
+  Person, PersonLink, DataSchema, Reign, Color, Colors
 } from '../utils/types';
 
 export function ageOrdering(height: number, strength: number = 0.1): Force<Person, PersonLink> {
@@ -164,51 +164,46 @@ async function fetchData(): Promise<DataSchema> {
   return await load(text) as DataSchema;
 }
 
-interface SVGProps {
-  nodes: Person[];
-  links: PersonLink[];
+interface PersonSVGProps {
+  person: Person;
+  radius: number;
+  reignColors: Record<Reign, Color>
+}
+function PersonSVG({ person: { id, country, reign, x, y}, radius, reignColors}: PersonSVGProps) {
+          return (<g>
+            <clipPath id={`${id}-mask`}>
+              <circle r={radius} cx={x!} cy={y!} />
+            </clipPath>
+            <image key={id}
+                   href={`/flags/${country!}.svg`}
+                   x={x! - 2*radius}
+                   y={y! - radius}
+                   height={radius * 2}
+                   clipPath={`url(#${id}-mask)`} />
+            <circle r={radius}
+                    cx={x!}
+                    cy={y!}
+                    stroke={reign ? reignColors[reign] : reignColors.none}
+                    strokeWidth='4px'
+                    fillOpacity='0'
+            />
+          </g>);
+}
+
+interface TreeProps {
   width: number;
   height: number;
-  nodeRadius: number;
+  radius: number;
 }
-
-function SVG({ nodes, links, width, height, nodeRadius }: SVGProps) {
-
-        // {nodes.map(node =>
-        //   <circle cx={node.x!} cy={node.y!} r='10' stroke='black' strokeWidth='12' />
-        // )}
-  return (
-    <svg width={width} height={height}>
-      <g>
-        {nodes.map(node =>
-          <g>
-            <clipPath id={`${node.id}-mask`}>
-              <circle r={nodeRadius} cx={node.x!} cy={node.y!} />
-            </clipPath>
-            <image key={node.id}
-                   href={`/flags/${node.country!}.svg`}
-                   x={node.x! - 2*nodeRadius}
-                   y={node.y! - nodeRadius}
-                   height={nodeRadius * 2}
-                   clipPath={`url(#${node.id}-mask)`} />
-          </g>
-        )}
-      </g>
-    </svg>
-  );
-}
-
-function Tree() {
-  const width = 800;
-  const height = 800;
-  const nodeRadius = 30;
+function Tree({width, height, radius}: TreeProps) {
 
   const [simulation, ] = useState(forceSimulation().stop());
+  const [colors, setColors] = useState<Colors>();
   const [nodes, setNodes] = useState<Person[]>([]);
   const [links, setLinks] = useState<PersonLink[]>([]);
 
   useEffect(() => {
-    fetchData().then(({ people }) => {
+    fetchData().then(({ people, colors }) => {
       const links = flatMap(people, (person: Person) => {
         const result = [];
         if (person.mother) {
@@ -227,6 +222,9 @@ function Tree() {
 
         return result;
       });
+      setColors(colors);
+      setNodes(people);
+      setLinks(links);
 
       simulation.nodes(people);
       simulation
@@ -234,8 +232,6 @@ function Tree() {
         .force('link', forceLink<Person, PersonLink>(links).id(d => d.id).strength(0.05))
         .force('age', ageOrdering(height, 0.1))
         .force('horizontal-center', forceX(width / 2).strength(0.05));
-      setNodes(people);
-      setLinks(links);
       simulation.alphaTarget(1).restart();
     })
   }, []);
@@ -247,7 +243,13 @@ function Tree() {
   });
 
   return (
-    <SVG width={width} height={height} nodes={nodes} links={links} nodeRadius={nodeRadius} />
+    <svg width={width} height={height}>
+      <g>
+        {nodes.map(node =>
+          <PersonSVG person={node} radius={radius} reignColors={colors!.reign}/>
+        )}
+      </g>
+    </svg>
   );
 }
 
