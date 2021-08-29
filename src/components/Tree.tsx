@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import {
-  select,
   create,
+  selectAll,
+  drag
 } from 'd3';
 import {
   forceSimulation,
@@ -12,10 +13,10 @@ import {
 } from 'd3-force';
 import { load } from 'js-yaml';
 import { flatMap } from 'lodash';
-import { drag } from '../utils/drag';
 import {
   Person, PersonLink, DataSchema, Reign, Color, Colors
 } from '../utils/types';
+import { Draggable } from '@shopify/draggable';
 
 export function ageOrdering(height: number, strength: number = 0.1): Force<Person, PersonLink> {
   let nodes: Person[],
@@ -167,35 +168,39 @@ async function fetchData(): Promise<DataSchema> {
 interface PersonSVGProps {
   person: Person;
   radius: number;
-  reignColors: Record<Reign, Color>
+  reignColors: Record<Reign, Color>;
 }
-function PersonSVG({ person: { id, name, country, reign, x, y}, radius, reignColors}: PersonSVGProps) {
-          return (<g>
-            <clipPath id={`${id}-mask`}>
-              <circle r={radius} cx={x!} cy={y!} />
-            </clipPath>
-            <image key={id}
-                   href={`/flags/${country!}.svg`}
-                   x={x! - 2*radius}
-                   y={y! - radius}
-                   height={radius * 2}
-                   clipPath={`url(#${id}-mask)`} />
-            <circle r={radius}
-                    cx={x!}
-                    cy={y!}
-                    stroke={reign ? reignColors[reign] : reignColors.none}
-                    strokeWidth='4px'
-                    fillOpacity='0'
-            />
-            <text x={x! - (1.2 * radius)}
-                  y={y! - (1.2 * radius)}
-                  stroke='#fff'
-                  strokeWidth='0.5'
-                  strokeOpacity='0.6'
-                  fill='#000'
-                  fontSize='16px'
-            >{name}</text>
-          </g>);
+function PersonSVG({ person, radius, reignColors }: PersonSVGProps) {
+  const { id, name, country, reign, x, y} = person;
+
+  return (<g>
+    <clipPath id={`${id}-mask`}>
+      <circle r={radius} cx={x!} cy={y!} />
+    </clipPath>
+    <image key={id}
+      href={`/flags/${country!}.svg`}
+      x={x! - 2*radius}
+      y={y! - radius}
+      height={radius * 2}
+      clipPath={`url(#${id}-mask)`} />
+    <circle r={radius}
+      cx={x!}
+      cy={y!}
+      stroke={reign ? reignColors[reign] : reignColors.none}
+      strokeWidth='4px'
+      fillOpacity='0'
+      id={id}
+      // cursor='move'
+    />
+    <text x={x! - (1.2 * radius)}
+      y={y! - (1.2 * radius)}
+      stroke='#fff'
+      strokeWidth='0.5'
+      strokeOpacity='0.6'
+      fill='#000'
+      fontSize='16px'
+    >{name}</text>
+  </g>);
 }
 
 interface PersonLinkSVGProps {
@@ -260,13 +265,35 @@ function Tree({width, height, radius}: TreeProps) {
   }, []);
 
   simulation.on('tick', () => {
-    console.log(simulation.alpha());
     setNodes([...nodes]);
     setLinks([...links]);
   });
 
+  const [drag, setDrag] = useState<[number, number, Person] | null >(null);
+
   return (
-    <svg width={width} height={height}>
+    <svg width={width} height={height} style={{border: '1px solid black'}}
+  onMouseMove={(e) => {
+      if (drag) {
+        const [offsetX, offsetY, person] = drag;
+        person.fx! = e.clientX + offsetX;
+        person.fy! = e.clientY + offsetY;
+      }}}
+      onMouseUp={()=>{
+        if (drag) {
+          const [, , person] = drag;
+          person.fx = person.fy = null;
+          setDrag(null);
+        }
+      }}
+      onMouseLeave={()=>{
+        if (drag) {
+          const [, , person] = drag;
+          person.fx = person.fy = null;
+          setDrag(null);
+        }
+      }}
+    >
       <g>
         {links.map(link =>
           <PersonLinkSVG link={link} />
@@ -274,7 +301,13 @@ function Tree({width, height, radius}: TreeProps) {
       </g>
       <g>
         {nodes.map(node =>
-          <PersonSVG person={node} radius={radius} reignColors={colors!.reign}/>
+        <g onMouseDown={(e)=>{
+          setDrag([node.x! - e.clientX, node.y! - e.clientY, node])
+        }}
+          cursor='move'
+        >
+          <PersonSVG person={node} radius={radius} reignColors={colors!.reign} />
+        </g>
         )}
       </g>
     </svg>
