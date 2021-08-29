@@ -192,8 +192,9 @@ function PersonSVG({ person, radius, reignColors }: PersonSVGProps) {
       id={id}
       // cursor='move'
     />
-    <text x={x! - (1.2 * radius)}
+    <text x={x}
       y={y! - (1.2 * radius)}
+      textAnchor='middle'
       stroke='#fff'
       strokeWidth='0.5'
       strokeOpacity='0.6'
