@@ -21,6 +21,7 @@ function App() {
               <Tree width={800} height={800} radius={30} data={data} />
             }
           </Async.Fulfilled>
+          <Async.Loading>Loading data...</Async.Loading>
         </Async>
       </Row>
     </Container>
