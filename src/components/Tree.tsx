@@ -85,16 +85,6 @@ interface TreeProps {
 }
 function Tree({ data: { people, colors }, width, height, radius }: TreeProps) {
   const [simulation] = useState(forceSimulation().stop());
-  useEffect(() => {
-    // One-time initialization: add simulation nodes and forces
-      simulation.nodes(people);
-      simulation
-        .force('charge', forceManyBody().strength(-300))
-        .force('link', forceLink<Person, PersonLink>(links).id((d) => d.id).strength(0.05))
-        .force('age', ageOrdering(height, 0.1))
-        .force('horizontal-center', forceX(width / 2).strength(0.05));
-      simulation.alphaTarget(0.3).restart();
-  }, []);
   // Have nodes and links be state variables so we can update them
   const [nodes, setNodes] = useState(people);
   const [links, setLinks] = useState<PersonLink[]>(flatMap(people, (person: Person) => {
@@ -117,6 +107,16 @@ function Tree({ data: { people, colors }, width, height, radius }: TreeProps) {
     return result;
   }));
 
+  useEffect(() => {
+    // One-time initialization: add simulation nodes and forces
+      simulation.nodes(people);
+      simulation
+        .force('charge', forceManyBody().strength(-300))
+        .force('link', forceLink<Person, PersonLink>(links).id((d) => d.id).strength(0.05))
+        .force('age', ageOrdering(height, 0.1))
+        .force('horizontal-center', forceX(width / 2).strength(0.05));
+      simulation.alphaTarget(0.3).restart();
+  }, []);
   // On every simulation step, write nodes and links again
   simulation.on('tick', () => {
     setNodes([...nodes]);
