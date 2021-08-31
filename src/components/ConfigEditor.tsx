@@ -56,7 +56,10 @@ function ConfigEditor({ data: { people }, config, submitConfig }: ConfigEditorPr
               <Form.Control
                 type='number'
                 value={since}
-                onChange={event => setSince(Number(event.target.value))}
+                onChange={event => setSince(
+                  event.target.value ?
+                  Number(event.target.value) : undefined
+                )}
               />
               <InputGroup.Text>CE</InputGroup.Text>
             </InputGroup>
@@ -67,7 +70,10 @@ function ConfigEditor({ data: { people }, config, submitConfig }: ConfigEditorPr
               <Form.Control
                 type='number'
                 value={before}
-                onChange={event => setBefore(Number(event.target.value))}
+                onChange={event => setBefore(
+                  event.target.value ?
+                  Number(event.target.value) : undefined
+                )}
               />
               <InputGroup.Text>CE</InputGroup.Text>
             </InputGroup>
