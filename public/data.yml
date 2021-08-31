@@ -1,0 +1,136 @@
+people:
+  - id: elizabeth-2
+    name: Elizabeth II
+    father: george-6
+    born: 1926
+    reign: current # type this as none, current, expected, past
+    country: united-kingdom
+  - id: charles-prince-of-wales
+    name: Charles, Prince of Wales
+    mother: elizabeth-2
+    born: 1948
+    country: united-kingdom
+    reign: expected
+  - id: anne-princess-royal
+    name: Anne, Princess Royal
+    mother: elizabeth-2
+    born: 1950
+    country: united-kingdom
+  - id: william-duke-of-cambridge
+    name: William, Duke of Cambridge
+    born: 1982
+    father: charles-prince-of-wales
+    country: united-kingdom
+  - id: prince-george-of-cambridge
+    name: Prince George of Cambridge
+    born: 2013
+    father: william-duke-of-cambridge
+    country: united-kingdom
+  - id: harry-duke-of-sussex
+    name: Harry, Duke of Sussex
+    born: 1984
+    father: charles-prince-of-wales
+    country: united-kingdom
+  - id: george-6
+    father: george-5
+    name: George VI
+    born: 1895
+    reign: past
+    country: united-kingdom
+  - id: edward-8
+    father: george-5
+    name: Edward VIII
+    born: 1894
+    reign: past
+    country: united-kingdom
+  - id: george-5
+    name: George V
+    father: edward-7
+    born: 1865
+    reign: past
+    country: united-kingdom
+  - id: edward-7
+    name: Edward VII
+    mother: victoria
+    born: 1841
+    reign: past
+    country: united-kingdom
+  - id: victoria
+    born: 1819
+    name: Queen Victoria
+    reign: past
+    country: united-kingdom
+  - id: infanta-leonor
+    name: Leonor, Princess of Asturias
+    father: felipe-6
+    born: 2005
+    reign: expected
+    country: spain
+  - id: felipe-6
+    name: Felipe VI
+    father: juan-carlos-1
+    born: 1968
+    reign: current
+    country: spain
+  - id: juan-carlos-1
+    name: Juan Carlos I
+    father: infante-juan
+    born: 1938
+    reign: past
+    country: spain
+  - id: infante-juan
+    name: Infante Juan, Count of Barcelona
+    father: alfonso-13
+    mother: victoria-eugenie-of-battenberg
+    born: 1913
+    reign: none
+    country: spain
+  - id: alfonso-13
+    name: Alfonso XIII
+    born: 1886
+    country: spain
+    reign: past
+    father: alfonso-12
+  - id: alfonso-12
+    name: Alfonso XII
+    born: 1857
+    reign: past
+    country: spain
+  - id: victoria-eugenie-of-battenberg
+    name: Victoria Eugenie of Battenberg
+    country: spain
+    born: 1887
+    mother: victoria
+  - id: victoria-princess-royal
+    name: Victoria, Princess Royal
+    mother: victoria
+    born: 1840
+    country: german_empire
+  - id: frederick-3
+    name: Frederick III
+    born: 1831
+    country: german_empire
+    reign: past
+  - id: wilhelm-2
+    name: Wilhelm II
+    country: german_empire
+    born: 1859
+    reign: past
+    mother: victoria-princess-royal
+    father: frederick-3
+  - id: princess-alice
+    name: Princess Alice of the United Kingdom
+    born: 1843
+    country: united-kingdom
+    mother: victoria
+  - id: empress-alexandra
+    name: Empress Alexandra of Russia
+    born: 1872
+    country: russia
+    mother: princess-alice
+colors:
+  reign:
+    past: gold
+    current: orange
+    expected: purple
+    none: black
