@@ -68,7 +68,7 @@ export interface DataSchema {
  */
 
 export interface Config {
-  // countries: Country[];
+  // countries: Set<Country>;
   width: number;
   height: number;
   radius: number;
