@@ -12,7 +12,8 @@ import { DataSchema, Config } from '../utils/types';
 const defaultConfig: Config = {
   width: 800,
   height: 800,
-  radius: 30
+  radius: 30,
+  countries: new Set(['United Kingdom'])
 }
 
 function App() {
@@ -33,7 +34,7 @@ function App() {
                   <Accordion.Item eventKey='0'>
                     <Accordion.Header>Options</Accordion.Header>
                     <Accordion.Body>
-                      <ConfigEditor data={data} config={config} />
+                      <ConfigEditor data={data} config={config} submitConfig={setConfig} />
                     </Accordion.Body>
                   </Accordion.Item>
                 </Accordion>
