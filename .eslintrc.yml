@@ -21,6 +21,9 @@ rules:
     - off
   '@typescript-eslint/no-use-before-define':
     - error
+  jsx-quotes:
+    - error
+    - prefer-single
 settings:
   import/resolver:
     node:

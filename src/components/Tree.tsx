@@ -39,19 +39,19 @@ function PersonSVG({ person, radius, reignColors }: PersonSVGProps) {
         cx={x!}
         cy={y!}
         stroke={reign ? reignColors[reign] : reignColors.none}
-        strokeWidth="4px"
-        fillOpacity="0"
+        strokeWidth='4px'
+        fillOpacity='0'
         id={id}
       />
       <text
         x={x}
         y={y! - (1.2 * radius)}
-        textAnchor="middle"
-        stroke="#fff"
-        strokeWidth="0.5"
-        strokeOpacity="0.6"
-        fill="#000"
-        fontSize="16px"
+        textAnchor='middle'
+        stroke='#fff'
+        strokeWidth='0.5'
+        strokeOpacity='0.6'
+        fill='#000'
+        fontSize='16px'
       >
         {name}
       </text>
@@ -69,9 +69,9 @@ function PersonLinkSVG({ link }: PersonLinkSVGProps) {
       y1={(link.source as Person).y}
       x2={(link.target as Person).x}
       y2={(link.target as Person).y}
-      stroke="#999"
-      strokeOpacity="0.6"
-      strokeWidth="10"
+      stroke='#999'
+      strokeOpacity='0.6'
+      strokeWidth='10'
     />
   );
 }
@@ -190,7 +190,7 @@ function Tree({
             onMouseDown={(e) => {
               setDrag([node.x! - e.clientX, node.y! - e.clientY, node]);
             }}
-            cursor="move"
+            cursor='move'
             key={`${node.id}-node`}
           >
             <PersonSVG person={node} radius={radius} reignColors={colors!.reign} />
