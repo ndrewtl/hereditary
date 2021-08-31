@@ -87,8 +87,30 @@ function Tree({
 }: TreeProps) {
   const [simulation] = useState(forceSimulation<Person>().stop());
   // Have nodes and links be state variables so we can update them
-  const [nodes, setNodes] = useState<Person[]>([]);
-  const [links, setLinks] = useState<PersonLink[]>([]);
+  const [nodes, setNodes] = useState<Person[]>(people);
+  const [links, setLinks] = useState<PersonLink[]>(flatMap(nodes, (person: Person) => {
+    // Initialize links as familial connections
+    // TODO other kinds of links, such as succession
+    const result = [];
+    if (person.mother) {
+      result.push({
+        source: person.id,
+        target: person.mother
+      });
+    }
+
+    if (person.father) {
+      result.push({
+        source: person.id,
+        target: person.father
+      });
+    }
+
+    return result;
+  }));
+
+  // The drag state is two offsets and the person being dragged, or null
+  const [drag, setDrag] = useState<[number, number, Person] | null >(null);
 
   useEffect(() => {
     // One-time initialization: add simulation nodes and forces
@@ -99,28 +121,6 @@ function Tree({
         .force('age', ageOrdering(height, 0.1))
         .force('horizontal-center', forceX(width / 2).strength(0.05));
       simulation.alphaTarget(0.3).restart();
-
-    // Set initial nodes and links:
-    setNodes(simulation.nodes());
-    setLinks(flatMap(nodes, (person: Person) => {
-      // Initialize links as familial connections
-      const result = [];
-      if (person.mother) {
-        result.push({
-          source: person.id,
-          target: person.mother
-        });
-      }
-
-      if (person.father) {
-        result.push({
-          source: person.id,
-          target: person.father
-        });
-      }
-
-      return result;
-    }));
   }, []);
 
   // On every simulation step, write nodes and links again
@@ -128,8 +128,6 @@ function Tree({
     setNodes([...nodes]);
     setLinks([...links]);
   });
-
-  const [drag, setDrag] = useState<[number, number, Person] | null >(null);
 
   return (
     <svg
