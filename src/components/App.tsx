@@ -5,7 +5,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Tree from './Tree';
 import { Async } from 'react-async';
 import { fetchData } from '../utils/util';
-import { DataSchema } from '../utils/types';
+import { DataSchema, Config } from '../utils/types';
+
+const defaultConfig: Config = {
+  width: 800,
+  height: 800,
+  radius: 30
+}
 
 function App() {
   return (
@@ -18,7 +24,7 @@ function App() {
         <Async promiseFn={() => fetchData()} >
           <Async.Fulfilled>
             {(data: DataSchema) =>
-              <Tree width={800} height={800} radius={30} data={data} />
+              <Tree data={data} config={defaultConfig} />
             }
           </Async.Fulfilled>
           <Async.Loading>Loading data...</Async.Loading>

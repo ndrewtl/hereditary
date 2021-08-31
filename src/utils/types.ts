@@ -62,3 +62,14 @@ export interface DataSchema {
   people: [Person];
   colors: Colors;
 }
+
+/**
+ * Configuration for the tree
+ */
+
+export interface Config {
+  // countries: Country[];
+  width: number;
+  height: number;
+  radius: number;
+}
