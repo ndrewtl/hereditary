@@ -83,45 +83,67 @@ interface TreeProps {
 }
 function Tree({
   data: { people, colors },
-  config: { width, height, radius }
+  config: { width, height, radius, countries, before, since }
 }: TreeProps) {
   const [simulation] = useState(forceSimulation<Person>().stop());
   // Have nodes and links be state variables so we can update them
-  const [nodes, setNodes] = useState<Person[]>(people);
-  const [links, setLinks] = useState<PersonLink[]>(flatMap(nodes, (person: Person) => {
-    // Initialize links as familial connections
-    // TODO other kinds of links, such as succession
-    const result = [];
-    if (person.mother) {
-      result.push({
-        source: person.id,
-        target: person.mother
-      });
-    }
-
-    if (person.father) {
-      result.push({
-        source: person.id,
-        target: person.father
-      });
-    }
-
-    return result;
-  }));
+  const [nodes, setNodes] = useState<Person[]>([]);
+  const [links, setLinks] = useState<PersonLink[]>([]);
 
   // The drag state is two offsets and the person being dragged, or null
   const [drag, setDrag] = useState<[number, number, Person] | null >(null);
 
   useEffect(() => {
+    // We only make selectedPeople mutable because we will re-set it several times in the
+    // subsequent wave of filters
+    let selectedPeople = people;
+    if (before) {
+      // If before is defined, only include people born up to (and including) the date
+      selectedPeople = selectedPeople.filter(person => person.born <= before);
+    }
+    if (since) {
+      // If since is defined, only include people born since the date
+      selectedPeople = selectedPeople.filter(person => person.born >= since);
+    }
+    selectedPeople = selectedPeople
+      // Include the selected countries
+      .filter(person => countries.has(person.country!));
+    const computedLinks = flatMap(selectedPeople, (person: Person) => {
+      // Initialize links as familial connections
+      // TODO other kinds of links, such as succession
+      const result = [];
+      // If the person has a defined mother and that mother can be found in selectedPeople...
+      if (person.mother && selectedPeople.find(p=>p.id == person.mother)) {
+        // Add a link between that person and their mother
+        result.push({
+          source: person.id,
+          target: person.mother
+        });
+      }
+
+      // And do the same with father
+      if (person.father && selectedPeople.find(p=>p.id == person.father)) {
+        result.push({
+          source: person.id,
+          target: person.father
+        });
+      }
+
+      return result;
+    });
+
     // One-time initialization: add simulation nodes and forces
-      simulation.nodes(people);
-      simulation
-        .force('charge', forceManyBody().strength(-300))
-        .force('link', forceLink<Person, PersonLink>(links).id((d) => d.id).strength(0.05))
-        .force('age', ageOrdering(height, 0.1))
-        .force('horizontal-center', forceX(width / 2).strength(0.05));
-      simulation.alphaTarget(0.3).restart();
-  }, []);
+    simulation.nodes(selectedPeople);
+    simulation
+      .force('charge', forceManyBody().strength(-300))
+      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.id).strength(0.05))
+      .force('age', ageOrdering(height, 0.1))
+      .force('horizontal-center', forceX(width / 2).strength(0.05));
+    simulation.alphaTarget(0.3).restart();
+
+    setNodes(selectedPeople);
+    setLinks(computedLinks);
+  }, [countries]);
 
   // On every simulation step, write nodes and links again
   simulation.on('tick', () => {
@@ -158,7 +180,7 @@ function Tree({
     >
       <g>
         {links.map((link) =>
-        <g key={`${(link.source as Person).id}-link`}>
+        <g key={`link-${(link.source as Person).id}-${(link.target as Person).id}`}>
           <PersonLinkSVG link={link} />)
         </g>)}
       </g>
