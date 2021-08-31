@@ -83,7 +83,7 @@ interface TreeProps {
 }
 function Tree({
   data: { people, colors },
-  config: { width, height, radius, countries }
+  config: { width, height, radius, countries, before, since }
 }: TreeProps) {
   const [simulation] = useState(forceSimulation<Person>().stop());
   // Have nodes and links be state variables so we can update them
@@ -94,8 +94,20 @@ function Tree({
   const [drag, setDrag] = useState<[number, number, Person] | null >(null);
 
   useEffect(() => {
-    const selectedPeople =
-      people.filter(person => countries.has(person.country!));
+    // We only make selectedPeople mutable because we will re-set it several times in the
+    // subsequent wave of filters
+    let selectedPeople = people;
+    if (before) {
+      // If before is defined, only include people born up to (and including) the date
+      selectedPeople = selectedPeople.filter(person => person.born <= before);
+    }
+    if (since) {
+      // If since is defined, only include people born since the date
+      selectedPeople = selectedPeople.filter(person => person.born >= since);
+    }
+    selectedPeople = selectedPeople
+      // Include the selected countries
+      .filter(person => countries.has(person.country!));
     const computedLinks = flatMap(selectedPeople, (person: Person) => {
       // Initialize links as familial connections
       // TODO other kinds of links, such as succession

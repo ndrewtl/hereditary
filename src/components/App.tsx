@@ -13,7 +13,9 @@ const defaultConfig: Config = {
   width: 800,
   height: 800,
   radius: 30,
-  countries: new Set(['United Kingdom'])
+  countries: new Set(['United Kingdom']),
+  before: 1985,
+  since: 1800
 }
 
 function App() {

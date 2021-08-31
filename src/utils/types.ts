@@ -59,7 +59,7 @@ export interface Colors {
  * One final type: this is the schema for the /public/data.yml file and is used for importing it
  */
 export interface DataSchema {
-  people: [Person];
+  people: Person[];
   colors: Colors;
 }
 
@@ -72,4 +72,6 @@ export interface Config {
   width: number;
   height: number;
   radius: number;
+  since?: number;
+  before?: number;
 }

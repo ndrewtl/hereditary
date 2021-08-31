@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { DataSchema, Config } from '../utils/types';
 import { uniq } from 'lodash';
 
@@ -17,28 +20,60 @@ function ConfigEditor({ data: { people }, config, submitConfig }: ConfigEditorPr
 
   // The config, as currently maintained inside this form
   const [countries, setCountries] = useState(config.countries);
+  const [before, setBefore] = useState(config.before);
+  const [since, setSince] = useState(config.since);
 
   return (
-    <Form>
-      <Form.Label>Countries</Form.Label>
-      {countryList.map(country =>
-        // For each country, show a checkbox for whether that country is included or not
-        <Form.Check
-          type='checkbox'
-          key={`${country}-enabled`}
-          id={`${country}-enabled`}
-          label={country}
-          checked={countries.has(country)}
-          onChange={() => {
-            if (countries.has(country)) {
-              countries.delete(country);
-            } else {
-              countries.add(country);
-            }
-            setCountries(new Set(countries));
-          }}
-        />
-      )}
+    <Row>
+      <Col>
+        <Form.Label>Countries</Form.Label>
+        {countryList.map(country =>
+          // For each country, show a checkbox for whether that country is included or not
+          <Form.Check
+            type='checkbox'
+            key={`${country}-enabled`}
+            id={`${country}-enabled`}
+            label={country}
+            checked={countries.has(country)}
+            onChange={() => {
+              if (countries.has(country)) {
+                countries.delete(country);
+              } else {
+                countries.add(country);
+              }
+              setCountries(new Set(countries));
+            }}
+          />
+        )}
+      </Col>
+
+      <Col>
+        <Row>
+          <Form.Label>Dates</Form.Label>
+          <Col>
+            <Form.Label>Since</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control
+                type='number'
+                value={since}
+                onChange={event => setSince(Number(event.target.value))}
+              />
+              <InputGroup.Text>CE</InputGroup.Text>
+            </InputGroup>
+          </Col>
+          <Col>
+            <Form.Label>Before</Form.Label>
+            <InputGroup hasValidation>
+              <Form.Control
+                type='number'
+                value={before}
+                onChange={event => setBefore(Number(event.target.value))}
+              />
+              <InputGroup.Text>CE</InputGroup.Text>
+            </InputGroup>
+          </Col>
+        </Row>
+      </Col>
 
       <Button
         variant='primary'
@@ -47,11 +82,13 @@ function ConfigEditor({ data: { people }, config, submitConfig }: ConfigEditorPr
           // Then submit the configuration based on current form state
           submitConfig({
             ...config,
-            countries: countries
+            countries: countries,
+            before: before,
+            since: since
           })
         }
       >Apply</Button>
-    </Form>
+    </Row>
   );
 }
 
