@@ -52,6 +52,7 @@ people:
   - id: edward-7
     name: Edward VII
     mother: victoria
+    father: prince-albert
     born: 1841
     reign: past
     country: United Kingdom
@@ -59,6 +60,12 @@ people:
     born: 1819
     name: Queen Victoria
     reign: past
+    country: United Kingdom
+    father: prince-edward-duke-of-kent-and-strathearn
+    mother: princess-victoria-of-saxe-coburg-saalfeld
+  - id: prince-albert
+    name: Albert, Prince Consort
+    born: 1819
     country: United Kingdom
   - id: infanta-leonor
     name: Leonor, Princess of Asturias
@@ -69,6 +76,7 @@ people:
   - id: felipe-6
     name: Felipe VI
     father: juan-carlos-1
+    mother: queen-sofía
     born: 1968
     reign: current
     country: Spain
@@ -91,6 +99,7 @@ people:
     country: Spain
     reign: past
     father: alfonso-12
+    mother: archduchess-maria-christina
   - id: alfonso-12
     name: Alfonso XII
     born: 1857
@@ -100,10 +109,17 @@ people:
     name: Victoria Eugenie of Battenberg
     country: Spain
     born: 1887
+    mother: princess-beatrice
+  - id: princess-beatrice
+    name: Princess Beatrice of the United Kingdom
+    born: 1857
+    country: United Kingdom
     mother: victoria
+    father: prince-albert
   - id: victoria-princess-royal
     name: Victoria, Princess Royal
     mother: victoria
+    father: prince-albert
     born: 1840
     country: German Empire
   - id: frederick-3
@@ -123,11 +139,28 @@ people:
     born: 1843
     country: United Kingdom
     mother: victoria
+    father: prince-albert
   - id: empress-alexandra
     name: Empress Alexandra of Russia
     born: 1872
     country: Russia
     mother: princess-alice
+  - id: archduchess-maria-christina
+    name: Archduchess Maria Christina
+    born: 1858
+    country: Spain
+  - id: queen-sofía
+    name: Queen Sofía of Spain
+    born: 1938
+    country: Spain
+  - id: princess-victoria-of-saxe-coburg-saalfeld
+    name: Princess Victoria of Saxe-Coburg-Saalfeld
+    country: United Kingdom
+    born: 1786
+  - id: prince-edward-duke-of-kent-and-strathearn
+    name: Prince Edward, Duke of Kent and Strathearn
+    born: 1767
+    country: United Kingdom
 colors:
   reign:
     past: gold
