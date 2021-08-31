@@ -100,14 +100,17 @@ function Tree({
       // Initialize links as familial connections
       // TODO other kinds of links, such as succession
       const result = [];
-      if (person.mother) {
+      // If the person has a defined mother and that mother can be found in selectedPeople...
+      if (person.mother && selectedPeople.find(p=>p.id == person.mother)) {
+        // Add a link between that person and their mother
         result.push({
           source: person.id,
           target: person.mother
         });
       }
 
-      if (person.father) {
+      // And do the same with father
+      if (person.father && selectedPeople.find(p=>p.id == person.father)) {
         result.push({
           source: person.id,
           target: person.father

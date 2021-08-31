@@ -30,7 +30,7 @@ function App() {
             {(data: DataSchema) =>
             <>
               <Row>
-                <Accordion style={{marginBottom: '5px'}}>
+                <Accordion style={{marginBottom: '5px'}} defaultActiveKey='0'>
                   <Accordion.Item eventKey='0'>
                     <Accordion.Header>Options</Accordion.Header>
                     <Accordion.Body>

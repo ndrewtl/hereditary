@@ -19,15 +19,7 @@ function ConfigEditor({ data: { people }, config, submitConfig }: ConfigEditorPr
   const [countries, setCountries] = useState(config.countries);
 
   return (
-    <Form onSubmit={(event) => {
-      // On form submit, prevent normal form behavior
-      event.preventDefault();
-      // Then submit the configuration based on current form state
-      submitConfig({
-        ...config,
-        countries: countries
-      });
-    }}>
+    <Form>
       <Form.Label>Countries</Form.Label>
       {countryList.map(country =>
         // For each country, show a checkbox for whether that country is included or not
@@ -48,7 +40,17 @@ function ConfigEditor({ data: { people }, config, submitConfig }: ConfigEditorPr
         />
       )}
 
-      <Button variant='primary' type='submit'>Apply</Button>
+      <Button
+        variant='primary'
+        type='submit'
+        onClick={() =>
+          // Then submit the configuration based on current form state
+          submitConfig({
+            ...config,
+            countries: countries
+          })
+        }
+      >Apply</Button>
     </Form>
   );
 }
