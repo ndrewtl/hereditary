@@ -7,6 +7,7 @@ jobs:
   build:
     executor: node-lts-executor
     steps:
+      - checkout
       - run: yarn --dev
   lint:
     executor: node-lts-executor
