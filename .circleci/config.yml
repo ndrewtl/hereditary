@@ -1,0 +1,27 @@
+version: 2.1
+executors:
+  node-lts-executor:
+    docker:
+      - image: cimg/node:lts
+
+jobs:
+  test:
+    executor: node-lts-executor
+    steps:
+      - checkout
+      - run: |
+          yarn --dev
+          yarn test
+  lint:
+    executor: node-lts-executor
+    steps:
+      - checkout
+      - run: |
+          yarn --dev
+          yarn lint
+
+workflows:
+  test-and-lint:
+    jobs:
+      - test
+      - lint
