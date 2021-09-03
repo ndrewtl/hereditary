@@ -2,13 +2,17 @@ env:
   browser: true
   es2021: true
 extends:
-  - 'plugin:react/recommended'
+  - plugin:react/recommended
+  - plugin:yml/standard
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaFeatures:
     jsx: true
   ecmaVersion: 12
   sourceType: module
+overrides:
+  - files: '*.yml'
+    parser: yaml-eslint-parser
 plugins:
   - react
   - '@typescript-eslint'
@@ -27,6 +31,16 @@ rules:
   jsx-quotes:
     - error
     - prefer-single
+  yml/sort-keys:
+    - error
+    - pathPattern: ^people.*$
+      order:
+        - name
+        - country
+        - born
+        - father
+        - mother
+        - reign
 settings:
   import/resolver:
     node:
