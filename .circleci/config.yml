@@ -31,7 +31,9 @@ workflows:
     jobs:
       - init
       - lint:
-          requires: init
+          requires:
+            - init
       - test:
-          requires: init
+          requires:
+            - init
       - build
