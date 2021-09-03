@@ -15,7 +15,7 @@ interface ConfigEditorProps {
 function ConfigEditor({ data: { people }, config, submitConfig }: ConfigEditorProps) {
   // The list of all countries, derived from the data
   const countryList = useMemo(() =>
-    uniq(people.map(person => person.country!)).sort(),
+    uniq(people.map(person => person.country)).sort(),
     [people]);
 
   // The config, as currently maintained inside this form

@@ -28,7 +28,7 @@ function PersonSVG({ person, radius, reignColors }: PersonSVGProps) {
       </clipPath>
       <image
         key={id}
-        href={`/flags/${country!}.svg`}
+        href={`/flags/${country}.svg`}
         x={x! - 2 * radius}
         y={y! - radius}
         height={radius * 2}
@@ -107,7 +107,7 @@ function Tree({
     }
     selectedPeople = selectedPeople
       // Include the selected countries
-      .filter(person => countries.has(person.country!));
+      .filter(person => countries.has(person.country));
     const computedLinks = flatMap(selectedPeople, (person: Person) => {
       // Initialize links as familial connections
       // TODO other kinds of links, such as succession
