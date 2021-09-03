@@ -28,7 +28,7 @@
     "build": "react-scripts build",
     "test": "ava",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.ts src/**/*.tsx"
+    "lint": "eslint src/**/*.ts src/**/*.tsx public/**/*.yml"
   },
   "type": "module",
   "ava": {
@@ -74,6 +74,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.25.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-yml": "^0.10.0",
     "ts-node": "^10.2.1"
   }
 }

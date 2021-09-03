@@ -33,7 +33,6 @@ export enum Reign {
  * A person is a SimulationNodeDatum with the attributes of a person
  */
 export interface Person extends SimulationNodeDatum {
-  id: Identifier;
   name: string;
   mother?: Identifier;
   father?: Identifier;
