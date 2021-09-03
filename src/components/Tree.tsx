@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import {
   forceSimulation,
   forceLink,
@@ -18,8 +18,9 @@ interface PersonSVGProps {
 }
 function PersonSVG({ person, radius, reignColors }: PersonSVGProps) {
   const {
-    id, name, country, reign, x, y
+    name, country, reign, x, y
   } = person;
+  const id = useMemo(() => name.replaceAll(/\s+/g, '_'), []);
 
   return (
     <g>
@@ -113,18 +114,18 @@ function Tree({
       // TODO other kinds of links, such as succession
       const result = [];
       // If the person has a defined mother and that mother can be found in selectedPeople...
-      if (person.mother && selectedPeople.find(p=>p.id == person.mother)) {
+      if (person.mother && selectedPeople.find(p=>p.name == person.mother)) {
         // Add a link between that person and their mother
         result.push({
-          source: person.id,
+          source: person.name,
           target: person.mother
         });
       }
 
       // And do the same with father
-      if (person.father && selectedPeople.find(p=>p.id == person.father)) {
+      if (person.father && selectedPeople.find(p=>p.name == person.father)) {
         result.push({
-          source: person.id,
+          source: person.name,
           target: person.father
         });
       }
@@ -136,7 +137,7 @@ function Tree({
     simulation.nodes(selectedPeople);
     simulation
       .force('charge', forceManyBody().strength(-300))
-      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.id).strength(0.01))
+      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.name).strength(0.01))
       .force('age', ageOrdering(height, 0.1))
       .force('horizontal-center', forceX(width / 2).strength(0.05));
     simulation.alphaTarget(0.3).restart();
@@ -180,7 +181,7 @@ function Tree({
     >
       <g>
         {links.map((link) =>
-        <g key={`link-${(link.source as Person).id}-${(link.target as Person).id}`}>
+        <g key={`link-${(link.source as Person).name}-${(link.target as Person).name}`}>
           <PersonLinkSVG link={link} />)
         </g>)}
       </g>
@@ -191,7 +192,7 @@ function Tree({
               setDrag([node.x! - e.clientX, node.y! - e.clientY, node]);
             }}
             cursor='move'
-            key={`${node.id}-node`}
+            key={`${node.name}-node`}
           >
             <PersonSVG person={node} radius={radius} reignColors={colors!.reign} />
           </g>

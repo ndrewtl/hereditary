@@ -1,164 +1,135 @@
 people:
-  - id: elizabeth-2
-    name: Elizabeth II
+  - name: Elizabeth II
     father: george-6
     born: 1926
     reign: current # type this as none, current, expected, past
     country: United Kingdom
-  - id: charles-prince-of-wales
-    name: Charles, Prince of Wales
+  - name: Charles, Prince of Wales
     mother: elizabeth-2
     born: 1948
     country: United Kingdom
     reign: expected
-  - id: anne-princess-royal
-    name: Anne, Princess Royal
+  - name: Anne, Princess Royal
     mother: elizabeth-2
     born: 1950
     country: United Kingdom
-  - id: william-duke-of-cambridge
-    name: William, Duke of Cambridge
+  - name: William, Duke of Cambridge
     born: 1982
     father: charles-prince-of-wales
     country: United Kingdom
-  - id: prince-george-of-cambridge
-    name: Prince George of Cambridge
+  - name: Prince George of Cambridge
     born: 2013
     father: william-duke-of-cambridge
     country: United Kingdom
-  - id: harry-duke-of-sussex
-    name: Harry, Duke of Sussex
+  - name: Harry, Duke of Sussex
     born: 1984
     father: charles-prince-of-wales
     country: United Kingdom
-  - id: george-6
-    father: george-5
+  - father: george-5
     name: George VI
     born: 1895
     reign: past
     country: United Kingdom
-  - id: edward-8
-    father: george-5
+  - father: george-5
     name: Edward VIII
     born: 1894
     reign: past
     country: United Kingdom
-  - id: george-5
-    name: George V
+  - name: George V
     father: edward-7
     born: 1865
     reign: past
     country: United Kingdom
-  - id: edward-7
-    name: Edward VII
+  - name: Edward VII
     mother: victoria
     father: prince-albert
     born: 1841
     reign: past
     country: United Kingdom
-  - id: victoria
-    born: 1819
+  - born: 1819
     name: Queen Victoria
     reign: past
     country: United Kingdom
     father: prince-edward-duke-of-kent-and-strathearn
     mother: princess-victoria-of-saxe-coburg-saalfeld
-  - id: prince-albert
-    name: Albert, Prince Consort
+  - name: Albert, Prince Consort
     born: 1819
     country: United Kingdom
-  - id: infanta-leonor
-    name: Leonor, Princess of Asturias
+  - name: Leonor, Princess of Asturias
     father: felipe-6
     born: 2005
     reign: expected
     country: Spain
-  - id: felipe-6
-    name: Felipe VI
+  - name: Felipe VI
     father: juan-carlos-1
     mother: queen-sofía
     born: 1968
     reign: current
     country: Spain
-  - id: juan-carlos-1
-    name: Juan Carlos I
+  - name: Juan Carlos I
     father: infante-juan
     born: 1938
     reign: past
     country: Spain
-  - id: infante-juan
-    name: Infante Juan, Count of Barcelona
+  - name: Infante Juan, Count of Barcelona
     father: alfonso-13
     mother: victoria-eugenie-of-battenberg
     born: 1913
     reign: none
     country: Spain
-  - id: alfonso-13
-    name: Alfonso XIII
+  - name: Alfonso XIII
     born: 1886
     country: Spain
     reign: past
     father: alfonso-12
     mother: archduchess-maria-christina
-  - id: alfonso-12
-    name: Alfonso XII
+  - name: Alfonso XII
     born: 1857
     reign: past
     country: Spain
-  - id: victoria-eugenie-of-battenberg
-    name: Victoria Eugenie of Battenberg
+  - name: Victoria Eugenie of Battenberg
     country: Spain
     born: 1887
     mother: princess-beatrice
-  - id: princess-beatrice
-    name: Princess Beatrice of the United Kingdom
+  - name: Princess Beatrice of the United Kingdom
     born: 1857
     country: United Kingdom
     mother: victoria
     father: prince-albert
-  - id: victoria-princess-royal
-    name: Victoria, Princess Royal
+  - name: Victoria, Princess Royal
     mother: victoria
     father: prince-albert
     born: 1840
     country: German Empire
-  - id: frederick-3
-    name: Frederick III
+  - name: Frederick III
     born: 1831
     country: German Empire
     reign: past
-  - id: wilhelm-2
-    name: Wilhelm II
+  - name: Wilhelm II
     country: German Empire
     born: 1859
     reign: past
     mother: victoria-princess-royal
     father: frederick-3
-  - id: princess-alice
-    name: Princess Alice of the United Kingdom
+  - name: Princess Alice of the United Kingdom
     born: 1843
     country: United Kingdom
     mother: victoria
     father: prince-albert
-  - id: empress-alexandra
-    name: Empress Alexandra of Russia
+  - name: Empress Alexandra of Russia
     born: 1872
     country: Russia
     mother: princess-alice
-  - id: archduchess-maria-christina
-    name: Archduchess Maria Christina
+  - name: Archduchess Maria Christina
     born: 1858
     country: Spain
-  - id: queen-sofía
-    name: Queen Sofía of Spain
+  - name: Queen Sofía of Spain
     born: 1938
     country: Spain
-  - id: princess-victoria-of-saxe-coburg-saalfeld
-    name: Princess Victoria of Saxe-Coburg-Saalfeld
+  - name: Princess Victoria of Saxe-Coburg-Saalfeld
     country: United Kingdom
     born: 1786
-  - id: prince-edward-duke-of-kent-and-strathearn
-    name: Prince Edward, Duke of Kent and Strathearn
+  - name: Prince Edward, Duke of Kent and Strathearn
     born: 1767
     country: United Kingdom
 colors:

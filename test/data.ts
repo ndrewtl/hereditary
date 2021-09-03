@@ -13,12 +13,12 @@ test('All parents exist and all children are younger than parents', t => {
   const { people } = data;
   people.forEach(person => {
     if (person.mother) {
-      const mother = people.find(candidate => candidate.id === person.mother);
+      const mother = people.find(candidate => candidate.name === person.mother);
       t.assert(mother, `${person.name} has existent mother ${person.mother}`);
       if (mother) { t.assert(person.born > mother.born, `${person.name} is younger than mother ${mother.name}`); }
     }
     if (person.father) {
-      const father = people.find(candidate => candidate.id === person.father);
+      const father = people.find(candidate => candidate.name === person.father);
       t.assert(father, `${person.name} has existent father ${person.father}`);
       if (father) { t.assert(person.born > father.born, `${person.name} is younger than father ${father.name}`); }
     }
