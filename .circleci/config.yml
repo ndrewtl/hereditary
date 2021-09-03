@@ -7,6 +7,15 @@ jobs:
   build:
     executor: node-lts-executor
     steps:
+      # Build the project from scratch
+      - checkout
+      - run: |
+        yarn
+        yarn build
+  init:
+    executor: node-lts-executor
+    steps:
+      # Initialize and install dev dependencies so that we can lint and test
       - checkout
       - run: yarn --dev
   lint:
@@ -20,6 +29,9 @@ jobs:
 workflows:
   main:
     jobs:
-      - build
-      - lint
+      - init
+      - lint:
+          requires: init
       - test
+          requires: init
+      - build
