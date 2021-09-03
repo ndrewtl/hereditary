@@ -3,19 +3,22 @@ executors:
   node-lts-executor:
     docker:
       - image: cimg/node:lts
-
 jobs:
-  test:
+  build:
     executor: node-lts-executor
     steps:
-      - checkout
-      - run: |
-          yarn --dev
-          yarn test
+      - run: yarn --dev
   lint:
     executor: node-lts-executor
     steps:
-      - checkout
-      - run: |
-          yarn --dev
-          yarn lint
+      - run: yarn lint
+  test:
+    executor: node-lts-executor
+    steps:
+      - run: yarn test
+workflows:
+  main:
+    jobs:
+      - build
+      - lint
+      - test
