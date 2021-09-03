@@ -37,7 +37,7 @@ export interface Person extends SimulationNodeDatum {
   name: string;
   mother?: Identifier;
   father?: Identifier;
-  country?: Country;
+  country: Country;
   born: number;
   reign?: Reign;
 }
