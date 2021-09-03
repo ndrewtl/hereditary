@@ -35,3 +35,14 @@ test('All countries have flags', t => {
     t.assert(existsSync(`public/flags/${country}.svg`))
   );
 });
+
+test('All names are unique', t => {
+  const { people } = data;
+  const names = people.map(person => person.name);
+  // For each name...
+  names.forEach(name => {
+    // Find all the people with that name
+    const namedPeople = people.filter(person => person.name === name);
+    t.is(namedPeople.length, 1, `Only one person should have the name ${name}`);
+  });
+});
