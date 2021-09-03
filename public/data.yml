@@ -2,86 +2,86 @@ people:
   - name: Elizabeth II
     country: United Kingdom
     born: 1926
-    father: george-6
+    father: George VI
     reign: current # type this as none, current, expected, past
   - name: Charles, Prince of Wales
     country: United Kingdom
     born: 1948
-    mother: elizabeth-2
+    mother: Elizabeth II
     reign: expected
   - name: Anne, Princess Royal
     country: United Kingdom
     born: 1950
-    mother: elizabeth-2
+    mother: Elizabeth II
   - name: William, Duke of Cambridge
     country: United Kingdom
     born: 1982
-    father: charles-prince-of-wales
+    father: Charles, Prince of Wales
   - name: Prince George of Cambridge
     country: United Kingdom
     born: 2013
-    father: william-duke-of-cambridge
+    father: William, Duke of Cambridge
   - name: Harry, Duke of Sussex
     country: United Kingdom
     born: 1984
-    father: charles-prince-of-wales
+    father: Charles, Prince of Wales
   - name: George VI
     country: United Kingdom
     born: 1895
-    father: george-5
+    father: George V
     reign: past
   - name: Edward VIII
     country: United Kingdom
     born: 1894
-    father: george-5
+    father: George V
     reign: past
   - name: George V
     country: United Kingdom
     born: 1865
-    father: edward-7
+    father: Edward VII
     reign: past
   - name: Edward VII
     country: United Kingdom
     born: 1841
-    father: prince-albert
-    mother: victoria
+    father: Prince Albert
+    mother: Queen Victoria
     reign: past
   - name: Queen Victoria
     country: United Kingdom
     born: 1819
-    father: prince-edward-duke-of-kent-and-strathearn
-    mother: princess-victoria-of-saxe-coburg-saalfeld
+    father: Prince Edward, Duke of Kent and Strathearn
+    mother: Princess Victoria of Saxe-Coburg-Saalfeld
     reign: past
-  - name: Albert, Prince Consort
+  - name: Prince Albert
     country: United Kingdom
     born: 1819
   - name: Leonor, Princess of Asturias
     country: Spain
     born: 2005
-    father: felipe-6
+    father: Felipe VI
     reign: expected
   - name: Felipe VI
     country: Spain
     born: 1968
-    father: juan-carlos-1
-    mother: queen-sofía
+    father: Juan Carlos I
+    mother: Queen Sofía of Spain
     reign: current
   - name: Juan Carlos I
     country: Spain
     born: 1938
-    father: infante-juan
+    father: Infante Juan, Count of Barcelona
     reign: past
   - name: Infante Juan, Count of Barcelona
     country: Spain
     born: 1913
-    father: alfonso-13
-    mother: victoria-eugenie-of-battenberg
+    father: Alfonso XIII
+    mother: Victoria Eugenie of Battenberg
     reign: none
   - name: Alfonso XIII
     country: Spain
     born: 1886
-    father: alfonso-12
-    mother: archduchess-maria-christina
+    father: Alfonso XII
+    mother: Archduchess Maria Christina
     reign: past
   - name: Alfonso XII
     country: Spain
@@ -90,17 +90,17 @@ people:
   - name: Victoria Eugenie of Battenberg
     country: Spain
     born: 1887
-    mother: princess-beatrice
+    mother: Princess Beatrice of the United Kingdom
   - name: Princess Beatrice of the United Kingdom
     country: United Kingdom
     born: 1857
-    father: prince-albert
-    mother: victoria
+    father: Prince Albert
+    mother: Queen Victoria
   - name: Victoria, Princess Royal
     country: German Empire
     born: 1840
-    father: prince-albert
-    mother: victoria
+    father: Prince Albert
+    mother: Queen Victoria
   - name: Frederick III
     country: German Empire
     born: 1831
@@ -108,18 +108,18 @@ people:
   - name: Wilhelm II
     country: German Empire
     born: 1859
-    father: frederick-3
-    mother: victoria-princess-royal
+    father: Frederick III
+    mother: Victoria, Princess Royal
     reign: past
   - name: Princess Alice of the United Kingdom
     country: United Kingdom
     born: 1843
-    father: prince-albert
-    mother: victoria
+    father: Prince Albert
+    mother: Queen Victoria
   - name: Empress Alexandra of Russia
     country: Russia
     born: 1872
-    mother: princess-alice
+    mother: Princess Alice of the United Kingdom
   - name: Archduchess Maria Christina
     country: Spain
     born: 1858
