@@ -1,137 +1,137 @@
 people:
   - name: Elizabeth II
-    father: george-6
+    country: United Kingdom
     born: 1926
+    father: george-6
     reign: current # type this as none, current, expected, past
-    country: United Kingdom
   - name: Charles, Prince of Wales
-    mother: elizabeth-2
-    born: 1948
     country: United Kingdom
+    born: 1948
+    mother: elizabeth-2
     reign: expected
   - name: Anne, Princess Royal
-    mother: elizabeth-2
-    born: 1950
     country: United Kingdom
+    born: 1950
+    mother: elizabeth-2
   - name: William, Duke of Cambridge
+    country: United Kingdom
     born: 1982
     father: charles-prince-of-wales
-    country: United Kingdom
   - name: Prince George of Cambridge
+    country: United Kingdom
     born: 2013
     father: william-duke-of-cambridge
-    country: United Kingdom
   - name: Harry, Duke of Sussex
+    country: United Kingdom
     born: 1984
     father: charles-prince-of-wales
+  - name: George VI
     country: United Kingdom
-  - father: george-5
-    name: George VI
     born: 1895
+    father: george-5
     reign: past
+  - name: Edward VIII
     country: United Kingdom
-  - father: george-5
-    name: Edward VIII
     born: 1894
+    father: george-5
     reign: past
-    country: United Kingdom
   - name: George V
-    father: edward-7
+    country: United Kingdom
     born: 1865
+    father: edward-7
     reign: past
-    country: United Kingdom
   - name: Edward VII
-    mother: victoria
-    father: prince-albert
+    country: United Kingdom
     born: 1841
+    father: prince-albert
+    mother: victoria
     reign: past
+  - name: Queen Victoria
     country: United Kingdom
-  - born: 1819
-    name: Queen Victoria
-    reign: past
-    country: United Kingdom
+    born: 1819
     father: prince-edward-duke-of-kent-and-strathearn
     mother: princess-victoria-of-saxe-coburg-saalfeld
+    reign: past
   - name: Albert, Prince Consort
-    born: 1819
     country: United Kingdom
+    born: 1819
   - name: Leonor, Princess of Asturias
-    father: felipe-6
-    born: 2005
-    reign: expected
     country: Spain
+    born: 2005
+    father: felipe-6
+    reign: expected
   - name: Felipe VI
+    country: Spain
+    born: 1968
     father: juan-carlos-1
     mother: queen-sofía
-    born: 1968
     reign: current
-    country: Spain
   - name: Juan Carlos I
-    father: infante-juan
-    born: 1938
-    reign: past
     country: Spain
+    born: 1938
+    father: infante-juan
+    reign: past
   - name: Infante Juan, Count of Barcelona
+    country: Spain
+    born: 1913
     father: alfonso-13
     mother: victoria-eugenie-of-battenberg
-    born: 1913
     reign: none
-    country: Spain
   - name: Alfonso XIII
-    born: 1886
     country: Spain
-    reign: past
+    born: 1886
     father: alfonso-12
     mother: archduchess-maria-christina
+    reign: past
   - name: Alfonso XII
+    country: Spain
     born: 1857
     reign: past
-    country: Spain
   - name: Victoria Eugenie of Battenberg
     country: Spain
     born: 1887
     mother: princess-beatrice
   - name: Princess Beatrice of the United Kingdom
-    born: 1857
     country: United Kingdom
-    mother: victoria
+    born: 1857
     father: prince-albert
+    mother: victoria
   - name: Victoria, Princess Royal
-    mother: victoria
-    father: prince-albert
+    country: German Empire
     born: 1840
-    country: German Empire
+    father: prince-albert
+    mother: victoria
   - name: Frederick III
-    born: 1831
     country: German Empire
+    born: 1831
     reign: past
   - name: Wilhelm II
     country: German Empire
     born: 1859
-    reign: past
-    mother: victoria-princess-royal
     father: frederick-3
+    mother: victoria-princess-royal
+    reign: past
   - name: Princess Alice of the United Kingdom
-    born: 1843
     country: United Kingdom
-    mother: victoria
+    born: 1843
     father: prince-albert
+    mother: victoria
   - name: Empress Alexandra of Russia
-    born: 1872
     country: Russia
+    born: 1872
     mother: princess-alice
   - name: Archduchess Maria Christina
+    country: Spain
     born: 1858
-    country: Spain
   - name: Queen Sofía of Spain
-    born: 1938
     country: Spain
+    born: 1938
   - name: Princess Victoria of Saxe-Coburg-Saalfeld
     country: United Kingdom
     born: 1786
   - name: Prince Edward, Duke of Kent and Strathearn
-    born: 1767
     country: United Kingdom
+    born: 1767
 colors:
   reign:
     past: gold
