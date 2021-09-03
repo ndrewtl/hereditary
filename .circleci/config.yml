@@ -29,6 +29,6 @@ jobs:
 workflows:
   main:
     jobs:
-      - lint:
-      - test:
+      - lint
+      - test
       - build
