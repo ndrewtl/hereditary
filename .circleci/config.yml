@@ -10,8 +10,8 @@ jobs:
       # Build the project from scratch
       - checkout
       - run: |
-        yarn
-        yarn build
+          yarn
+          yarn build
   init:
     executor: node-lts-executor
     steps:
