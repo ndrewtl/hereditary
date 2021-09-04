@@ -10,6 +10,7 @@ import { Async } from 'react-async';
 import { fetchData } from '../utils/util';
 import { DataSchema, Config } from '../utils/types';
 import { join } from 'path';
+import { BrowserRouter } from 'react-router-dom';
 
 const defaultConfig: Config = {
   width: 800,
@@ -28,7 +29,7 @@ function App() {
   const [config, setConfig] = useState(defaultConfig);
 
   return (
-    <>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Navigation />
       <Container>
         <Row>
@@ -57,7 +58,7 @@ function App() {
             <Async.Loading>Loading data...</Async.Loading>
           </Async>
       </Container>
-    </>
+    </BrowserRouter>
   );
 }
 
