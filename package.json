@@ -3,6 +3,7 @@
   "version": "0.4.0",
   "homepage": "https://ndrewtl.github.io/hereditary",
   "repository": "https://github.com/ndrewtl/hereditary",
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
