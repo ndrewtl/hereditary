@@ -29,7 +29,7 @@
     "test": "ava",
     "eject": "react-scripts eject",
     "lint": "eslint src/**/*.ts src/**/*.tsx public/**/*.yml",
-    "deploy": "yarn run build && gh-pages -d build"
+    "deploy": "yarn run build && yarn run gh-pages --dist build"
   },
   "type": "module",
   "ava": {
