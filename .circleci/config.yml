@@ -29,6 +29,15 @@ jobs:
 workflows:
   main:
     jobs:
-      - lint
-      - test
-      - build
+      - lint:
+          filters:
+            branches:
+              ignore: gh-pages
+      - test:
+          filters:
+            branches:
+              ignore: gh-pages
+      - build:
+          filters:
+            branches:
+              ignore: gh-pages
