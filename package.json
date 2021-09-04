@@ -1,6 +1,7 @@
 {
   "name": "hereditary",
   "version": "0.2.1",
+  "homepage": "https://ndrewtl.github.io/hereditary",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",

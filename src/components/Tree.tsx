@@ -9,7 +9,8 @@ import { flatMap } from 'lodash';
 import {
   Person, PersonLink, Reign, Color, Config, DataSchema
 } from '../utils/types';
-import { ageOrdering, fetchData } from '../utils/util';
+import { ageOrdering } from '../utils/util';
+import { join } from 'path';
 
 interface PersonSVGProps {
   person: Person;
@@ -29,7 +30,7 @@ function PersonSVG({ person, radius, reignColors }: PersonSVGProps) {
       </clipPath>
       <image
         key={id}
-        href={`/flags/${country}.svg`}
+        href={join(process.env.PUBLIC_URL, `flags/${country}.svg`)}
         x={x! - 2 * radius}
         y={y! - radius}
         height={radius * 2}
