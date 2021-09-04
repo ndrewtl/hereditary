@@ -8,19 +8,21 @@ indicates that one is a child of the other. The simulation has the following rul
 
 - All nodes repel each other
 - Parental relations draw nodes together
-- Nodes are vertically toward the year of their birth. This is calculated as follows:
+- Nodes are vertically drawn toward the year of their birth. This is calculated
+as follows:
   - Say that the oldest person was born in 1900 and the youngest person was born
   in 2000. Say person _x_ is born in 1980.
   - Then the age-sorting force:
-    - attracts the oldest person near the top of the simulation
+    - attracts the oldest person near to the top of the simulation
     - attracts the youngest near to the bottom of the simulation
     - attracts person _x_ about 80% of the way down in the simulation
   - The effect of this is that each person 'falls' toward their birth year,
   sorting the tree by age
-- All nodes are (mildly) attracted toward the centerline of the simulation. This
-has the effect of preventing nodes from floating outside of the image.
+- All nodes are (mildly) attracted toward the vertical centerline of the simulation.
+This has the effect of preventing nodes from floating outside of the image left
+or right.
 
-The simulation will begin as a jumble and will untangle itself, producing a family
+The simulation will begin as a jumble and will sort itself, producing a family
 tree. However, sometimes nodes will become a bit 'tangled up'. If the node seems
 stuck or contorted, you can help it out by dragging some of the nodes to 'untangle'
 the graph.
