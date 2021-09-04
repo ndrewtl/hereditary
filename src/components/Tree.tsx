@@ -137,10 +137,10 @@ function Tree({
     // One-time initialization: add simulation nodes and forces
     simulation.nodes(selectedPeople);
     simulation
-      .force('charge', forceManyBody().strength(-400))
-      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.name).strength(0.04))
-      .force('age', ageOrdering(height, 0.2))
-      .force('horizontal-center', forceX(width / 2).strength(0.05));
+      .force('charge', forceManyBody().strength(-2000))
+      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.name).strength(0.2))
+      .force('age', ageOrdering(height, 1))
+      .force('horizontal-center', forceX(width / 2).strength(0.25));
     simulation.alphaTarget(0.0).restart();
 
     // Set the initial nodes and links
