@@ -2,7 +2,6 @@
   "name": "hereditary",
   "version": "0.2.1",
   "homepage": "https://ndrewtl.github.io/hereditary",
-  "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -29,7 +28,8 @@
     "build": "react-scripts build",
     "test": "ava",
     "eject": "react-scripts eject",
-    "lint": "eslint src/**/*.ts src/**/*.tsx public/**/*.yml"
+    "lint": "eslint src/**/*.ts src/**/*.tsx public/**/*.yml",
+    "deploy": "yarn run build && gh-pages -d build"
   },
   "type": "module",
   "ava": {
@@ -76,6 +76,7 @@
     "eslint-plugin-react": "^7.25.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-yml": "^0.10.0",
+    "gh-pages": "^3.2.3",
     "ts-node": "^10.2.1"
   }
 }
