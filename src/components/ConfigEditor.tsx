@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { DataSchema, Config } from '../utils/types';
 import { uniq } from 'lodash';
+import { join } from 'path';
 
 interface ConfigEditorProps {
   data: DataSchema;

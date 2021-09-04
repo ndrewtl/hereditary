@@ -53,7 +53,7 @@ export function ageOrdering(height: number, strength: number = 0.1): Force<Perso
  * @param {string} url - the url from which to fetch the data
  * @return {Promise<DataSchema>} - the data
  */
-export async function fetchData(url: string = '/data.yml'): Promise<DataSchema> {
+export async function fetchData(url: string): Promise<DataSchema> {
   const response = await fetch(url);
   const text = await response.text();
   return await load(text) as DataSchema;

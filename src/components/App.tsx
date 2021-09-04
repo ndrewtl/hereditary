@@ -8,6 +8,7 @@ import ConfigEditor from './ConfigEditor';
 import { Async } from 'react-async';
 import { fetchData } from '../utils/util';
 import { DataSchema, Config } from '../utils/types';
+import { join } from 'path';
 
 const defaultConfig: Config = {
   width: 800,
@@ -27,7 +28,7 @@ function App() {
         <h1>Hereditary</h1>
         <hr />
       </Row>
-        <Async promiseFn={() => fetchData()} >
+        <Async promiseFn={() => fetchData(join(process.env.PUBLIC_URL, 'data.yml'))} >
           <Async.Fulfilled>
             {(data: DataSchema) =>
             <>
