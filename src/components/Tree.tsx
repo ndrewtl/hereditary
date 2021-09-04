@@ -137,9 +137,9 @@ function Tree({
     // One-time initialization: add simulation nodes and forces
     simulation.nodes(selectedPeople);
     simulation
-      .force('charge', forceManyBody().strength(-300))
-      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.name).strength(0.01))
-      .force('age', ageOrdering(height, 0.1))
+      .force('charge', forceManyBody().strength(-400))
+      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.name).strength(0.04))
+      .force('age', ageOrdering(height, 0.2))
       .force('horizontal-center', forceX(width / 2).strength(0.05));
     simulation.alphaTarget(0.3).restart();
 
