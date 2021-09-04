@@ -1,5 +1,7 @@
 # Hereditary
 
+[Live demo](https://ndrewtl.github.io/hereditary)
+
 An interactive visualization of the royal families of various countries.
 
 The family tree is represented as a [d3-force](https://github.com/d3/d3-force)
