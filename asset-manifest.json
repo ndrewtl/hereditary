@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.js": "/hereditary/static/js/main.c99b4cc3.chunk.js",
+    "main.js.map": "/hereditary/static/js/main.c99b4cc3.chunk.js.map",
+    "runtime-main.js": "/hereditary/static/js/runtime-main.ce8d9770.js",
+    "runtime-main.js.map": "/hereditary/static/js/runtime-main.ce8d9770.js.map",
+    "static/css/2.c490997a.chunk.css": "/hereditary/static/css/2.c490997a.chunk.css",
+    "static/js/2.c24f748d.chunk.js": "/hereditary/static/js/2.c24f748d.chunk.js",
+    "static/js/2.c24f748d.chunk.js.map": "/hereditary/static/js/2.c24f748d.chunk.js.map",
+    "index.html": "/hereditary/index.html",
+    "static/css/2.c490997a.chunk.css.map": "/hereditary/static/css/2.c490997a.chunk.css.map",
+    "static/js/2.c24f748d.chunk.js.LICENSE.txt": "/hereditary/static/js/2.c24f748d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ce8d9770.js",
+    "static/css/2.c490997a.chunk.css",
+    "static/js/2.c24f748d.chunk.js",
+    "static/js/main.c99b4cc3.chunk.js"
+  ]
+}
