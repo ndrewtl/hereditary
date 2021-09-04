@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
 import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Tree from './Tree';
+import Navigation from './Navigation';
 import ConfigEditor from './ConfigEditor';
 import { Async } from 'react-async';
 import { fetchData } from '../utils/util';
@@ -30,16 +29,7 @@ function App() {
 
   return (
     <>
-      <Navbar>
-        <Container>
-          <Navbar.Brand href='/hereditary'>Hereditary</Navbar.Brand>
-          <Nav>
-            <Nav.Link href=''>GitHub</Nav.Link>
-            <Nav.Link href=''>File an Issue</Nav.Link>
-            <Nav.Link href=''>Contribute Data</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar>
+      <Navigation />
       <Container>
         <Row>
           <hr />
