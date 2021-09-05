@@ -158,7 +158,12 @@ function Tree({
     <svg
       width={width}
       height={height}
-      style={{ border: '1px solid black' }}
+      style={{
+        border: '1px solid black',
+        width: width,
+        height: height
+      }}
+      viewBox={`0 0 ${width} ${height}`}
       onMouseMove={(e) => {
         if (drag) {
           const [offsetX, offsetY, person] = drag;
