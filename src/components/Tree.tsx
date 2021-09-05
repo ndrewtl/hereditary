@@ -159,9 +159,7 @@ function Tree({
       width={width}
       height={height}
       style={{
-        border: '1px solid black',
-        width: width,
-        height: height
+        border: '1px solid black'
       }}
       viewBox={`0 0 ${width} ${height}`}
       onMouseMove={(e) => {
