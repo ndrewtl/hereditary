@@ -137,12 +137,13 @@ function Tree({
     // One-time initialization: add simulation nodes and forces
     simulation.nodes(selectedPeople);
     simulation
-      .force('charge', forceManyBody().strength(-400))
-      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.name).strength(0.04))
-      .force('age', ageOrdering(height, 0.2))
-      .force('horizontal-center', forceX(width / 2).strength(0.05));
-    simulation.alphaTarget(0.3).restart();
+      .force('charge', forceManyBody().strength(-2000))
+      .force('link', forceLink<Person, PersonLink>(computedLinks).id((d) => d.name).strength(0.2))
+      .force('age', ageOrdering(height, 1))
+      .force('horizontal-center', forceX(width / 2).strength(0.25));
+    simulation.alphaTarget(0.0).restart();
 
+    // Set the initial nodes and links
     setNodes(selectedPeople);
     setLinks(computedLinks);
   }, [countries]);
@@ -157,7 +158,10 @@ function Tree({
     <svg
       width={width}
       height={height}
-      style={{ border: '1px solid black' }}
+      style={{
+        border: '1px solid black'
+      }}
+      viewBox={`0 0 ${width} ${height}`}
       onMouseMove={(e) => {
         if (drag) {
           const [offsetX, offsetY, person] = drag;
@@ -170,6 +174,7 @@ function Tree({
           const [, , person] = drag;
           person.fx = person.fy = null;
           setDrag(null);
+          simulation.alphaTarget(0);
         }
       }}
       onMouseLeave={() => {
@@ -177,6 +182,7 @@ function Tree({
           const [, , person] = drag;
           person.fx = person.fy = null;
           setDrag(null);
+          simulation.alphaTarget(0);
         }
       }}
     >
@@ -191,6 +197,7 @@ function Tree({
           <g
             onMouseDown={(e) => {
               setDrag([node.x! - e.clientX, node.y! - e.clientY, node]);
+              simulation.alphaTarget(0.3).restart();
             }}
             cursor='move'
             key={`${node.name}-node`}
