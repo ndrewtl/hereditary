@@ -10,22 +10,22 @@ jobs:
       # Build the project from scratch
       - checkout
       - run: |
-          yarn
-          yarn build
+          npm install
+          npm run build
   lint:
     executor: node-lts-executor
     steps:
       - checkout
       - run: |
-          yarn --dev
-          yarn lint
+          npm install
+          npm run lint
   test:
     executor: node-lts-executor
     steps:
       - checkout
       - run: |
-          yarn --dev
-          yarn test
+          npm install --save-dev
+          npm test
 workflows:
   main:
     jobs:
